@@ -34,7 +34,6 @@ public class assembler{
 						String str;										//will store label
 						int colonIndex =line.indexOf(":");
 						str = line.substring(0,colonIndex);
-						System.out.println(str);
 						labels.put(str, lineCounter);					//store label and line number in labels map
 					}
 				}
@@ -72,6 +71,8 @@ public class assembler{
 			fileReader.close();
 			readBuffer.close();
 			
+			System.out.println(lineCounter);
+			
 			//The below instructions simply open the written output file after execution
 			Desktop dt = Desktop.getDesktop();
 			dt.open(outputFile);
@@ -83,9 +84,12 @@ public class assembler{
 	
 	// Line is empty if there's no characters on it or if it begins with '#'
 	public static boolean isEmpty(String str){
-		if(str.length()<=0)
+		if(str.isEmpty())													//if string is empty then line is empty
 			return true;
-		if(str.startsWith("#"))
+		while(str.startsWith(" ") || str.startsWith("\t")){					//get rid of empty space at beginning of string
+			str = str.substring(1);
+		}
+		if(str.startsWith("#"))											//if string begins with #, line is a commment and should be ignored
 			return true;
 		return false;
 	}
@@ -104,7 +108,10 @@ public class assembler{
 		try{															//delimit string by spaces
 			String[] str = s.split(" ");
 			for(int i =0; i<str.length; i++){
-				instruction.add(str[i]);								//adds split strings to arrayList
+				if(!str[i].isEmpty()){
+					if(str[i].startsWith("#")){break;}					//stop adding to arrayList if we reach a comment
+					instruction.add(str[i]);							//adds split strings to arrayList if they are not empty  or comments
+				}	
 			}	
 		}
 		catch(Exception e){
