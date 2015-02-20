@@ -1,0 +1,3 @@
+--Computer Organization and Architecture Project, Part 1
+--Names: Henry Lu, Saki Kajita, Francois Parent, Jeffrey Tichelman
+--Description: Top level entity for part 1 of the project
