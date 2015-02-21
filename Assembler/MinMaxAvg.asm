@@ -6,14 +6,14 @@
 
 #Array:		.word	34, 78, 43, 67, 91, 56, 25, 69
 
-	addi $11,  $0, 2000  	# initializing the beginning of Data Section address in memory
+	addi $11, $0, 2000  	# initializing the beginning of Data Section address in memory
 	addi $15, $0, 4 		# word size in byte
 	
 	addi $10, $0, 0
 	mult $10, $15			# $lo=4*$10, for word alignment 
 	mflo $12				# assume small numbers
 	add  $13, $11, $12 		# Make data pointer [2000+($10)*4]
-	addi $2,$0,34 
+	addi $2, $0, 34 
 	sw	 $2, 0($13)
 	
 	addi $10, $0, 1

@@ -194,15 +194,35 @@ public class assembler{
 						
 					//Memory instructions will have to calculate offsets
 					case "lw":
+						t = getIntFromRegister(li.next().toString(), false);
+						String str= li.next().toString();
+						i = getOffset(str);
+						d = getAddressRegister(str);
+						writeBuffer.write(t + " " + i + " " + d);
 						break;
 						
 					case "lb":
+						t = getIntFromRegister(li.next().toString(), false);
+						String str= li.next().toString();
+						i = getOffset(str);
+						d = getAddressRegister(str);
+						writeBuffer.write(t + " " + i + " " + d);
 						break;
 						
 					case "sw":
+						t = getIntFromRegister(li.next().toString(), false);
+						String str= li.next().toString();
+						i = getOffset(str);
+						d = getAddressRegister(str);
+						writeBuffer.write(t + " " + i + " " + d);
 						break;
 						
 					case "sb":
+						t = getIntFromRegister(li.next().toString(), false);
+						String str= li.next().toString();
+						i = getOffset(str);
+						d = getAddressRegister(str);
+						writeBuffer.write(t + " " + i + " " + d);
 						break;
 						
 					//Branch instructions need to find label line and calculate offset
@@ -226,12 +246,6 @@ public class assembler{
 						System.out.println("Instruction " + operation + " not recognized");
 						break;
 					}	
-					
-					//writes list to output file
-/*					while(li.hasNext()){
-						writeBuffer.write(li.next().toString());
-						writeBuffer.write(" ");
-					}*/
 					writeBuffer.newLine();
 				}
 			}				
@@ -276,11 +290,11 @@ public class assembler{
 		}
 		
 		//Try to remove tabs, seems to be a bug with Stirng.replace that won't allow you to replace "\t"
+		//for now I just remove everything after the tab
 		if(s.contains("\t")){
 			int tabIndex = s.indexOf("\t");
 			s=s.substring(0, tabIndex);	
 		}
-		System.out.println(s);
 		try{															//delimit string by spaces
 			String[] str = s.split(" ");
 			for(int i =0; i<str.length; i++){
@@ -308,6 +322,19 @@ public class assembler{
 			s = s.substring(dollarIndex+1, commaIndex);
 			return Integer.parseInt(s);
 		}
+	}
+	
+	public static int getOffset(String s){
+		int bracketIndex = s.indexOf("(");
+		s = s.substring(0, bracketIndex);
+		return Integer.parseInt(s);
+	}
+	
+	public static int getAddressRegister(String s){
+		int openBracketIndex = s.indexOf("(");
+		int closeBracketIndex = s.indexOf(")");
+		s = s.substring(openBracketIndex+1, closeBracketIndex);
+		return getIntFromRegister(s, true);
 	}
 }
 
