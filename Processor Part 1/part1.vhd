@@ -61,22 +61,15 @@ Architecture implementation of part1 is
 	Begin
 		processor_module : processor 
 		port map (
-			clock, address_signal, write_en_signal, write_done_signal, read_en_signal,
-			read_ready_signal, data_signal
+			clock=>clock, address_mem=>address_signal, write_en=>write_en_signal, write_done=>write_done_signal,
+			read_en=>read_en_signal, read_ready=>read_ready_signal, data_mem=>data_signal
 		);
 		
 		main_memory_module : Main_Memory
-		Generic Map (
-			File_Address_Read => "Init.dat",
-			File_Address_Write => "MemCon.dat",
-			Mem_Size => 256,
-			Num_Bits_in_Word => 8,
-			Read_Delay => 3,
-			Write_Delay => 0
-		);
 		Port Map (
-			clock, address_signal, write_en_signal, write_done_signal, read_en_signal,
-			read_ready_signal, data_signal, initialize, dump
+			clk=>clock, address=>address_signal, we=>write_en_signal, wr_done=>write_done_signal,
+			re=>read_en_signal, rd_ready=>read_ready_signal, data=>data_signal,
+			initialize=>initialize, dump=>dump
 		);
 
 End implementation;

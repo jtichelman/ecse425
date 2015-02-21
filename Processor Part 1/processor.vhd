@@ -54,12 +54,21 @@ Architecture implementation of processor is
 		variable shift_by: integer range 0 to 31; --Holds the amount to shift by for shift operations
 		
 		Begin
+			--For testing purposes, initialize registers with values
+			IF(now < 1 ps)THEN
+				For i in 0 to 31 LOOP
+					reg(i) <= std_logic_vector(to_unsigned(i,32));
+				END LOOP;
+			end if;	
+			
+			if (clock = '0' and clock'event) then
 			case current_state is 
 			
 				--Fetch instruction from memory
 				when FETCH_STATE =>
 					data_mem <= "ZZZZZZZZ"; -- Apparently needed for INOUT ports
 					read_en <= '1';
+					write_en<='0';
 					address_mem <= program_counter;
 					--Check for read_ready and wait in this state if not ready
 					if (read_ready = '1') then
@@ -251,7 +260,8 @@ Architecture implementation of processor is
 						when others =>
 							next_state <= FETCH_STATE;
 					end case;
-			end case;		
+			end case;	
+			end if;	
 		end process;
 		
 		clock_process : process(clock)

@@ -46,8 +46,12 @@ Architecture implementation of testbench_part1 is
 		test_process : process
 		Begin
 			initialize <='1';
+			wait for clock_period;
+			initialize <='0';
 			wait for 100 ns;	--Wait until all instructions have been executed
 			dump<='1';
+			wait for clock_period;
+			dump<='0';
 			
 			wait;
 		End process;
