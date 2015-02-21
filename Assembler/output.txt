@@ -9,7 +9,7 @@ addi 1 3 0
 mult 10 15
 mflo 12
 add 13 11 12
-lw 2 0 13
+sw 2 0 13
 addi 10 10 -1
-bne 
-beq 
+bne 10 0 -8 (loop, 6)
+beq 11 11 0 (EoP, 15)

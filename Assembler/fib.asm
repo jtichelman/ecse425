@@ -15,9 +15,9 @@ loop:	addi $3, $2, 0		# temp = Fib(n-1)
 	mult $10, $15		# $lo=4*$10, for word alignment 
 	mflo $12		# assume small numbers
 	add  $13, $11, $12	# Make data pointer [2000+($10)*4]
-	sw	 $2, 0($13)	# Mem[$10+2000] <-- Fib(n)
+	sw $2, 0($13)	# Mem[$10+2000] <-- Fib(n)
 	addi $10, $10, -1	# loop index
 	bne  $10, $0, loop 
 			
-EoP:	beq	 $11, $11, EoP 	#end of program (infinite loop)
+EoP:	beq  $11, $11, EoP 	#end of program (infinite loop)
 ###############################################

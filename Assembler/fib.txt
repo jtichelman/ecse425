@@ -21,5 +21,5 @@ loop:	addi $3, $2, 0		# temp = Fib(n-1)
 	addi $10, $10, -1	# loop index
 	bne  $10, $0, loop 
 
-EoP:	beq	 $11, $11, EoP	#end of program (infinite loop)
+EoP:	beq $11, $11, EoP	#end of program (infinite loop)
 ###############################################

@@ -20,7 +20,7 @@
 	mult $10, $15			# $lo=4*$10, for word alignment 
 	mflo $12				# assume small numbers
 	add  $13, $11, $12 		# Make data pointer [2000+($10)*4]
-	addi $2,$0,78 
+	addi $2,$0, 78 
 	sw	 $2, 0($13)
 	
 	addi $10, $0, 2
