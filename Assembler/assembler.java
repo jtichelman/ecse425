@@ -16,7 +16,7 @@ public class assembler{
 			BufferedReader readBuffer = new BufferedReader(fileReader);
 			
 			//Similarly create FileWriter and writeBuffer
-			File binaryOutputFile = new File("outputB.txt");
+			File binaryOutputFile = new File("Init.dat");
 			FileWriter fileWriter = new FileWriter(binaryOutputFile);
 			BufferedWriter writeBuffer = new BufferedWriter(fileWriter);
 
@@ -57,7 +57,6 @@ public class assembler{
 					//for parsing list
 					ListIterator li = instruction.listIterator();
 					
-					//TODO: Based on the instruction entered calculate the appropriate arguments
 					
 					//Gets first item in list (the operation)
 					String operation = li.next().toString();
@@ -98,7 +97,7 @@ public class assembler{
 						
 					case "div":
 						s = getIntFromRegister(li.next().toString(), false);
-						t = getIntFromRegister(li.next().toString(), false);
+						t = getIntFromRegister(li.next().toString(), true);
 						wb.write(s + " " + t);
 						writeBuffer.write("000100" + toBinary(s,5) + toBinary(t,5) + "0000000000000000");
 						break;
@@ -284,7 +283,7 @@ public class assembler{
 						break;
 						
 					case "jr":
-						s = getIntFromRegister(li.next().toString(), false);	
+						s = getIntFromRegister(li.next().toString(), true);	
 						wb.write(s);
 						writeBuffer.write("011011" + toBinary(s, 5) + "000000000000000000000");
 						break;
@@ -314,10 +313,6 @@ public class assembler{
 			fw.close();
 			fileReader.close();
 			readBuffer.close();
-			
-			//The below instructions simply open the written output file after execution
-			Desktop dt = Desktop.getDesktop();
-			dt.open(outputFile);
 		}
 		catch (Exception e) {
 			//Gives line # of instruction where error occured if it occurs while parsing
@@ -350,15 +345,11 @@ public class assembler{
 		while(s.startsWith(" ") || s.startsWith("\t")){					//get rid of empty space at beginning of string
 			s = s.substring(1);
 		}
+		s=s.replaceAll(",", ", ");
 		
-		//Try to remove tabs, seems to be a bug with Stirng.replace that won't allow you to replace "\t"
-		//for now I just remove everything after the tab
-		if(s.contains("\t")){
-			int tabIndex = s.indexOf("\t");
-			s=s.substring(0, tabIndex);	
-		}
+		//splits string by white space and places the resulting strings in the returned ArrayList
 		try{															//delimit string by spaces
-			String[] str = s.split(" ");
+			String[] str = s.split("\\s+");
 			for(int i =0; i<str.length; i++){
 				if(!str[i].isEmpty()){
 					if(str[i].startsWith("#")){break;}					//stop adding to arrayList if we reach a comment
@@ -402,13 +393,13 @@ public class assembler{
 		return getIntFromRegister(s, true);
 	}
 	
+	//Doesn't represent negative numbers for now
 	public static String toBinary(int n, int numBits){
 		String str = Integer.toBinaryString(n);
 		if(str.length()>numBits){
-			System.out.println("Can't represent " + n + " in " + numBits + " bits, truncating...");
-			str =  str.substring(0, numBits);
+			str =  str.substring(16, str.length());
 		}
-		if(str.length()<numBits){
+		else if(str.length()<numBits){
 			int padBits = numBits - str.length();
 			StringBuffer sb = new StringBuffer();
 			for(int i=0; i<padBits; i++){
