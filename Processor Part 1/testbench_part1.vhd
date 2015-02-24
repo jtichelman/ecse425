@@ -12,7 +12,7 @@ End testbench_part1;
 Architecture implementation of testbench_part1 is
 	--Constants
 	Constant Num_Bits_in_Word: integer := 8; 
-	Constant Memory_Size:integer := 256;
+	Constant Memory_Size:integer := 1024;
 	constant clock_period : time := 1 ns;
 	
 	--Component Declarations
@@ -43,12 +43,15 @@ Architecture implementation of testbench_part1 is
 			wait for clock_period/2;
 		end process;
 		
+		--Testbench begins here
 		test_process : process
 		Begin
+		  --Load contents of init.dat file into memory
+			wait for clock_period;
 			initialize <='1';
 			wait for clock_period;
 			initialize <='0';
-			wait for 100 ns;	--Wait until all instructions have been executed
+			wait for 500 ns;	--Wait until all instructions have been executed, then dump
 			dump<='1';
 			wait for clock_period;
 			dump<='0';
