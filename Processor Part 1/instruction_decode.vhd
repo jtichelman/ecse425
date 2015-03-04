@@ -1,8 +1,8 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all
+use ieee.numeric_std.all;
 
-ENTITY insruction_decode is
+ENTITY instruction_decode is
 
 port( 	instruction		:	in std_logic_vector(31 downto 0);
 		wb_addr	:	in std_logic_vector(4 downto 0);
@@ -10,7 +10,7 @@ port( 	instruction		:	in std_logic_vector(31 downto 0);
 		en, wb_en, clock : in std_logic;
 		command	:	out std_logic_vector(5 downto 0);
 		d_register, shift : out std_logic_vector (4 downto 0);
-		Address	: out std_logic_vecor(25 downto 0);
+		Address	: out std_logic_vector(25 downto 0);
 		s_register, t_register, immediate	:	out std_logic_vector(31 downto 0));
 END instruction_decode;
 
@@ -37,6 +37,7 @@ begin
 	variable addr: integer range 0 to 67108863; --For storing address field as an int
 	variable hi_lo: std_logic_vector (63 downto 0); --Holds 64-bit values before splitting into $HI and $LO
 	variable shift_by: integer range 0 to 31; --Holds the amount to shift by for shift operations
+	variable write_to: integer range 0 to 31;
 	begin
 		if (clock = '0' and clock'event) then
 			if (en = '1') then
@@ -48,16 +49,17 @@ begin
 				addr := to_integer(unsigned(instruction(25 downto 0)));
 				shift_by := to_integer(unsigned(instruction(15 downto 11)));
 			
-				s_register <= std_logic_vector(signed(reg(reg_s));
-				t_register <= std_logic_vector(signed(reg(reg_t));
+				s_register <= std_logic_vector(signed(reg(reg_s)));
+				t_register <= std_logic_vector(signed(reg(reg_t)));
 				immediate <= std_logic_vector(to_signed(imm,32));
 				command <= opcode;
-				d_register <= std_logic_vector(to_unsigned(reg_d));
-				address <= std_logic_vector(to_unsigned(addr));
-				shift <= std_logic_vector(to_unsigned(shift_by));
+				d_register <= std_logic_vector(to_unsigned(reg_d, 5));
+				address <= std_logic_vector(to_unsigned(addr, 26));
+				shift <= std_logic_vector(to_unsigned(shift_by, 5));
 			end if;
-			if(wb_en = '1')
-				reg(wb_addr) <= wb_val;
+			if(wb_en = '1') then
+				write_to := to_integer(unsigned(wb_addr));
+				reg(write_to) <= wb_val;
 			end if;
 		end if;
 
