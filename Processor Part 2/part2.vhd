@@ -83,6 +83,7 @@ Architecture implementation of part2 is
 			branch_cond		: out std_logic
 	  );
 	  
+	 end component; 
 	--MEM stage
 	
 	Component mem is
@@ -101,6 +102,7 @@ Architecture implementation of part2 is
 			ADDRESS_MEM : out integer;
 			LMD : out std_logic_vector(31 downto 0)
 		);	
+	end component;
 	
 	--WB stage
 	
@@ -122,7 +124,7 @@ Architecture implementation of part2 is
 		reg_address : out integer range 0 to 31;
 		reg_enable : in std_logic
 	);
-	
+	end component;
 	--Signal Declarations
 	--Connecting stages together
 	
