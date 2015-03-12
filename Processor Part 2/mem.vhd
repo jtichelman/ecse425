@@ -81,8 +81,10 @@ architecture behaviour of mem is
 						WHEN others =>
 							if(COND = '1') then
 								PC <= to_integer(unsigned(ALU_Output));
+								LMD <= NPC-4;
 							else
 								PC <= NPC;
+								LMD <= NPC-4;
 							end if;
 					END CASE;
 				END IF;
