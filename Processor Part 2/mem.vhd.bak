@@ -11,7 +11,7 @@ entity mem is
 				COND : in std_logic;
 				READ_READY, WRITE_DONE : in std_logic;
 				NPC : in integer;
-				INSTRUCTION : in std_logic_vector(5 downto 0);
+				INST : in integer;
 				PC : out integer;
 				READ_EN, WRITE_EN, WORD_BYTE_MEM : out std_logic;
 				ADDRESS_MEM : out integer;
@@ -20,9 +20,7 @@ entity mem is
 end mem;
 
 architecture behaviour of mem is
-	signal INST : integer;
 	Begin
-		INST<=to_integer(unsigned(INSTRUCTION));
 		process0 : process(CLK, ENABLE)
 		begin
 			if(CLK'EVENT and CLK = '1') then

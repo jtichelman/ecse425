@@ -1,0 +1,7 @@
+--Computer Org. and Arch. Project Part 2
+--Tai Hung (Henry) Lu, Saki Kajita, Jeffrey Tichelman, Francois Parent
+--Description: Memory controller for interacting with main memory
+
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+USE ieee.numeric_std.all;
