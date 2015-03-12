@@ -1,6 +1,6 @@
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all
+use ieee.numeric_std.all;
 
 ENTITY execute is
 
@@ -27,13 +27,15 @@ Architecture behaviour of execute is
 signal HI_LO			: std_logic_vector(63 downto 0);
 signal reg_HI			: std_logic_vector(31 downto 0);
 signal reg_LO 			: std_logic_vector(31 downto 0);
+signal error 			: std_logic;
+
 begin
 
 
 	Execution: process(clock)
 	
 	begin
-	if(CLK'EVENT and CLK = '1') then
+	if(clock'EVENT and clock = '1') then
 				if(ENABLE = '1') then
 	
 					case op_code is	--Check opcode
@@ -43,14 +45,14 @@ begin
 						when "000001" => --sub
 							ALU_output <= std_logic_vector(signed(s_register) - signed(t_register));
 						when "000010" => --addi
-							ALU_output <= std_logic_vector(signed(s_register) + to_signed(immediate,32));
+							ALU_output <= std_logic_vector(signed(s_register) + signed(immediate));
 						when "000011" => --mult
-							HI_LO := std_logic_vector(signed(s_register) * signed(t_register);
+							HI_LO <= std_logic_vector(signed(s_register) * signed(t_register));
 							reg_HI<= HI_LO (63 downto 32);
 							reg_LO<= HI_LO (31 downto 0);
 							
 						when "000100" => --div
-							reg_LO <= std_logic_vector(signed(s_register) / signed(t_register);
+							reg_LO <= std_logic_vector(signed(s_register) / signed(t_register));
 							reg_HI <= std_logic_vector(signed(s_register) rem signed(t_register)); --mod or rem?
 						when "000101" => --slt
 							if signed(s_register) < signed(t_register) then
@@ -59,7 +61,7 @@ begin
 								ALU_output <= std_logic_vector(to_signed(0,32));
 							end if;
 						when "000110" => --slti
-							if signed(s_register)) < to_signed(immediate, 32) then
+							if signed(s_register) < signed(immediate) then
 								ALU_output <= std_logic_vector(to_signed(1,32));
 							else
 								ALU_output <= std_logic_vector(to_signed(0,32));
@@ -75,11 +77,11 @@ begin
 						when "001010" => --xor
 							ALU_output <= s_register XOR t_register;
 						when "001011" => --andi
-							ALU_output <= s_register AND std_logic_vector(to_signed(immediate,32));
+							ALU_output <= s_register AND immediate;
 						when "001100" => --ori
-							ALU_output <= s_register OR std_logic_vector(to_signed(immediate,32));
+							ALU_output <= s_register OR immediate;
 						when "001101" => --xori
-							ALU_output <= s_register XOR std_logic_vector(to_signed(immediate,32));
+							ALU_output <= s_register XOR immediate;
 						
 						--Transfer
 						when "001110" => --mfhi
@@ -87,28 +89,28 @@ begin
 						when "001111" => --mflo
 							ALU_output <= reg_LO;
 						when "010000" => --lui
-							ALU_output <= std_logic_vector(to_signed(immediate,32) sll 16);
+							ALU_output <= immediate;
 						
 						--Shift
 						when "010001" => --sll
-							ALU_output <= to_stdlogicvector(to_bitvector(t_register) sll to_signed(shift));
+							ALU_output <= to_stdlogicvector(to_bitvector(t_register) sll to_integer(signed(shift)));
 						when "010010" => --slr
-							ALU_output <= to_stdlogicvector(to_bitvector(t_register) srl to_signed(shift));
+							ALU_output <= to_stdlogicvector(to_bitvector(t_register) srl to_integer(signed(shift)));
 						when "010011" => --sra
-							ALU_output <= to_stdlogicvector(to_bitvector(t_register) sra to_signed(shift));
+							ALU_output <= to_stdlogicvector(to_bitvector(t_register) sra to_integer(signed(shift)));
 						
 						--Memory
 						when "010100" => --lw
 							--Loads 4 bytes from memory into a 32-bit register
-							ALU_output <= to_integer(signed(s_register)) + immediate;
+							ALU_output <= std_logic_vector(to_signed(to_integer(signed(s_register)) + to_integer(signed(immediate)),32));
 						when "010101" => --lb
-							ALU_output <= to_integer(signed(s_register)) + immediate;
+							ALU_output <= std_logic_vector(to_signed(to_integer(signed(s_register)) + to_integer(signed(immediate)),32));
 						when "010110" => --sw
 							--Store a 32-bit register into 4 memory blocks
-							ALU_output <= to_integer(signed(s_register)) + immediate;
+							ALU_output <= std_logic_vector(to_signed(to_integer(signed(s_register)) + to_integer(signed(immediate)),32));
 							B_operand <= t_register;
 						when "010111" => --sb
-							ALU_output <= to_integer(signed(s_register)) + immediate;
+							ALU_output <= std_logic_vector(to_signed(to_integer(signed(s_register)) + to_integer(signed(immediate)),32));
 							B_operand <= t_register;
 						
 						--Control-Flow
@@ -136,8 +138,8 @@ begin
 						when "011100" => --jal
 							branch_cond <= '1';
 							ALU_output <= "000000" & address;
-						--when others =>
-							
+						when others =>
+							error <= '1';
 					end case;
 	
 		end if;
