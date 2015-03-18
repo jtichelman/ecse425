@@ -24,7 +24,6 @@ END execute;
 
 Architecture behaviour of execute is
 
-signal HI_LO			: std_logic_vector(63 downto 0);
 signal reg_HI			: std_logic_vector(31 downto 0);
 signal reg_LO 			: std_logic_vector(31 downto 0);
 signal error 			: std_logic;
@@ -33,7 +32,7 @@ begin
 
 
 	Execution: process(clock)
-	
+	variable HI_LO			: std_logic_vector(63 downto 0);
 	begin
 	if(clock'EVENT and clock = '1') then
 				if(ENABLE = '1') then
@@ -47,9 +46,9 @@ begin
 						when "000010" => --addi
 							ALU_output <= std_logic_vector(signed(s_register) + signed(immediate));
 						when "000011" => --mult
-							HI_LO <= std_logic_vector(signed(s_register) * signed(t_register));
-							reg_HI<= HI_LO (63 downto 32);
-							reg_LO<= HI_LO (31 downto 0);
+							HI_LO := std_logic_vector(signed(s_register) * signed(t_register));
+							reg_HI <= HI_LO (63 downto 32);
+							reg_LO <= HI_LO (31 downto 0);
 							
 						when "000100" => --div
 							reg_LO <= std_logic_vector(signed(s_register) / signed(t_register));

@@ -15,7 +15,8 @@ entity mem is
 				PC : out integer;
 				READ_EN, WRITE_EN, WORD_BYTE_MEM : out std_logic;
 				ADDRESS_MEM : out integer;
-				LMD : out std_logic_vector(31 downto 0)
+				LMD : out std_logic_vector(31 downto 0);
+				ALU_PASS : out std_logic_vector(31 downto 0)
 			);			
 end mem;
 
@@ -31,7 +32,7 @@ architecture behaviour of mem is
 						--ALU Instructions
 						WHEN 0 to 20=>
 							PC <= NPC;
-							LMD <= ALU_Output;
+							ALU_PASS <= ALU_Output;
 							
 						--Load Word	
 						WHEN 21 =>
@@ -81,10 +82,10 @@ architecture behaviour of mem is
 						WHEN others =>
 							if(COND = '1') then
 								PC <= to_integer(unsigned(ALU_Output));
-								LMD <= NPC-4;
+								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
 							else
 								PC <= NPC;
-								LMD <= NPC-4;
+								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
 							end if;
 					END CASE;
 				END IF;

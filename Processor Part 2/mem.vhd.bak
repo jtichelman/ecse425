@@ -11,16 +11,19 @@ entity mem is
 				COND : in std_logic;
 				READ_READY, WRITE_DONE : in std_logic;
 				NPC : in integer;
-				INST : in integer;
+				INSTRUCTION : in std_logic_vector(5 downto 0);
 				PC : out integer;
 				READ_EN, WRITE_EN, WORD_BYTE_MEM : out std_logic;
 				ADDRESS_MEM : out integer;
 				LMD : out std_logic_vector(31 downto 0)
+				ALU_PASS : out std_logic_vector(31 downto 0);
 			);			
 end mem;
 
 architecture behaviour of mem is
+	signal INST : integer;
 	Begin
+		INST<=to_integer(unsigned(INSTRUCTION));
 		process0 : process(CLK, ENABLE)
 		begin
 			if(CLK'EVENT and CLK = '1') then
@@ -29,7 +32,7 @@ architecture behaviour of mem is
 						--ALU Instructions
 						WHEN 0 to 20=>
 							PC <= NPC;
-							LMD <= ALU_Output;
+							ALU_PASS <= ALU_Output;
 							
 						--Load Word	
 						WHEN 21 =>
@@ -79,8 +82,10 @@ architecture behaviour of mem is
 						WHEN others =>
 							if(COND = '1') then
 								PC <= to_integer(unsigned(ALU_Output));
+								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
 							else
 								PC <= NPC;
+								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
 							end if;
 					END CASE;
 				END IF;

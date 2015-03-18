@@ -26,7 +26,7 @@ Entity fetch_stage is
 --		write_done : in std_logic;
 		read_en : out std_logic;
 		read_ready : in std_logic;
-		data_mem : inout std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);
+		data_mem : in std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);
 		
 		--Branch ports
 		pc_in : in integer;
@@ -41,13 +41,22 @@ End fetch_stage;
 
 Architecture implementation of fetch_stage is
 	--Signal declarations
-	signal program_counter : integer range 0 to Mem_Size_in_Word*Num_Bytes_in_Word := 0; --Initialize pc to 0
+	--variable program_counter : integer range 0 to Mem_Size_in_Word*Num_Bytes_in_Word := 0; --Initialize pc to 0
 
 	Begin
 		fetch_process : process(clock)
+		variable program_counter : integer := 0; --Initialize pc to 0
+		variable first : std_logic:='1';
 		Begin
 			if (clock = '1' and clock'event) then
+			  
+			  --data_mem<="11111111111111111111111111111111";
 				if fetch_en = '1' then
+				  if first = '1' then
+			       program_counter := 0;
+			     else
+			       program_counter := pc_in;
+			     end if;  
 					read_en <= '1';
 --					write_en<='0';
 --					word_byte_mem <= '1';
@@ -58,10 +67,13 @@ Architecture implementation of fetch_stage is
 						--Write instruction to IF/ID register
 						instruction_out <= data_mem;
 												
-						program_counter <= program_counter + 4;	--increment PC to next word
+						--program_counter <= program_counter + 4;	--increment PC to next word
 						
 						pc_out <= program_counter +4; --increment next PC to next word
 					end if;
+				end if;
+				if(IF_en = '0' and first='1') then
+				  first := '0';
 				end if;
 			end if;
 		end process;
