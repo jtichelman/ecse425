@@ -14,8 +14,8 @@ architecture behaviour of controller is
 		increment : process(clock)
 		variable count : integer := -1;
 		Begin
-			if(clock'EVENT and clock = '1') then
-			if (count = 18) then
+			if(clock'EVENT and clock = '0') then
+			if (count = 23) then
 			  count := 0;
 			else 
 			  count := count + 1;
@@ -25,10 +25,9 @@ architecture behaviour of controller is
 						IF_en <='1';
 						wb_en <='0';
 						
-					WHEN 1=>
-					  IF_EN<='0';
 					
 					WHEN 8 =>
+						IF_en<='0';
 						ID_en <='1';
 						
 						
@@ -41,10 +40,9 @@ architecture behaviour of controller is
 						EX_en <= '0';
 						MEM_en <= '1';
 						
-			    WHEN 11=>
-			      mem_en <='0';
 			
 					WHEN 18 =>
+						MEM_en <= '0';
 						WB_en <= '1';
 						
 						
