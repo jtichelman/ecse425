@@ -14,10 +14,12 @@ port(
 		s_register		: in std_logic_vector(31 downto 0);
 		t_register		: in std_logic_vector(31 downto 0);
 		immediate	   : in std_logic_vector(31 downto 0);
+		instruction_in : in std_logic_vector(31 downto 0);
 		
 		ALU_output  	: out std_logic_vector(31 downto 0);
 		B_operand 		: out std_logic_vector(31 downto 0);
-		branch_cond		: out std_logic
+		branch_cond		: out std_logic;
+		instruction_out	: out std_logic_vector(31 downto 0)
 	  );
 END execute;
 

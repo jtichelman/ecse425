@@ -20,8 +20,6 @@ entity ex_mem_reg is
 			NPC_in : in integer;
 			opcode_in : in std_logic_vector(5 downto 0);
 			opcode_out : out std_logic_vector(5 downto 0);
-			instruction_in : in std_logic_vector(31 downto 0);
-			instruction_out: out std_logic_vector(31 downto 0)
 		);
 end ex_mem_reg;
 
@@ -33,7 +31,7 @@ architecture behaviour of ex_mem_reg is
 				ALU_output_to_mem <= ALU_output;
 				B <= B_operand;
 				cond_out <= branch_cond;
-				instruction_out<=instruction_in;
+				
 				NPC_out <= NPC_in;
 			end if;
 		end process;

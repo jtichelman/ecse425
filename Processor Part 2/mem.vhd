@@ -4,26 +4,28 @@ USE ieee.numeric_std.all;
 
 entity mem is
 	PORT (	CLK : in std_logic;
-				B : in std_logic_vector(31 downto 0);
-				ALU_Output : in std_logic_vector(31 downto 0);
-				DATA_MEMORY : inout std_logic_vector(31 downto 0);
-				ENABLE : in std_logic;
-				COND : in std_logic;
-				READ_READY, WRITE_DONE : in std_logic;
-				NPC : in integer;
-				INSTRUCTION : in std_logic_vector(5 downto 0);
-				PC : out integer;
-				READ_EN, WRITE_EN, WORD_BYTE_MEM : out std_logic;
-				ADDRESS_MEM : out integer;
-				LMD : out std_logic_vector(31 downto 0);
-				ALU_PASS : out std_logic_vector(31 downto 0)
-			);			
+			B : in std_logic_vector(31 downto 0);
+			ALU_Output : in std_logic_vector(31 downto 0);
+			DATA_MEMORY : inout std_logic_vector(31 downto 0);
+			ENABLE : in std_logic;
+			COND : in std_logic;
+			READ_READY, WRITE_DONE : in std_logic;
+			NPC : in integer;
+			INSTRUCTION : in std_logic_vector(5 downto 0);
+			INSTRUCTION_IN : in std_logic_vector(31 downto 0);
+			PC : out integer;
+			READ_EN, WRITE_EN, WORD_BYTE_MEM : out std_logic;
+			ADDRESS_MEM : out integer;
+			LMD : out std_logic_vector(31 downto 0);
+			ALU_PASS : out std_logic_vector(31 downto 0);
+			INSTRUCTION_OUT : out std_logic_vector (31 downto 0)
+		);			
 end mem;
 
 architecture behaviour of mem is
 	signal INST : integer;
 	Begin
-		
+		INSTRUCTION_OUT <= INSTRUCTION;
 		process0 : process(CLK, ENABLE)
 		begin
 			if(CLK'EVENT and CLK = '1') then
@@ -82,19 +84,13 @@ architecture behaviour of mem is
 						--Branch instruction
 						WHEN others =>
 							if(COND = '1') then
-<<<<<<< HEAD
-								PC <= to_integer(unsigned(ALU_Output));
-								LMD <= std_logic_vector(signed(NPC-4));
-							else
-								PC <= NPC;
-								LMD <= std_logic_vector(signed(NPC-4));
-=======
+
 								PC <= NPC - 4 + to_integer(unsigned(ALU_Output))*4;
 								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
 							else
 								PC <= NPC;
 								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
->>>>>>> 0c605889e13898437102749c70aef6e64e189f9b
+
 							end if;
 					END CASE;
 				END IF;
