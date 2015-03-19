@@ -12,11 +12,10 @@ port( 	instruction		:	in std_logic_vector(31 downto 0);
 		d_register, shift : out std_logic_vector (4 downto 0);
 		Address	: out std_logic_vector(25 downto 0);
 		s_register, t_register, immediate	:	out std_logic_vector(31 downto 0);
-		npc_in	: 	in integer;
-		instruction_out : out std_logic_vector(31 downto 0);
+		npc_in : in integer;
+		instruction_out: out std_logic_vector(31 downto 0);
 		npc_out : out integer);
 END instruction_decode;
-
 
 architecture behav of instruction_decode is
 	--Instantiate registers 0-31 as an array of registers
@@ -26,8 +25,8 @@ architecture behav of instruction_decode is
 
 
 begin
-	npc_out<=npc_in;
-	instruction_out<=instruction;
+
+
 	Decode: process(clock)
 	--Variable declarations
 	--variable data_counter: integer range 0 to 3 := 0;

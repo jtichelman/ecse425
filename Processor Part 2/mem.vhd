@@ -19,13 +19,13 @@ entity mem is
 			LMD : out std_logic_vector(31 downto 0);
 			ALU_PASS : out std_logic_vector(31 downto 0);
 			INSTRUCTION_OUT : out std_logic_vector (31 downto 0)
-		);			
+		);	
 end mem;
 
 architecture behaviour of mem is
 	signal INST : integer;
 	Begin
-		INSTRUCTION_OUT <= INSTRUCTION_IN;
+		
 		process0 : process(CLK, ENABLE)
 		begin
 			if(CLK'EVENT and CLK = '1') then
@@ -84,13 +84,11 @@ architecture behaviour of mem is
 						--Branch instruction
 						WHEN others =>
 							if(COND = '1') then
-
 								PC <= NPC - 4 + to_integer(unsigned(ALU_Output))*4;
 								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
 							else
 								PC <= NPC;
 								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
-
 							end if;
 					END CASE;
 				END IF;

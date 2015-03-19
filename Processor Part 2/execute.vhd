@@ -15,11 +15,12 @@ port(
 		t_register		: in std_logic_vector(31 downto 0);
 		immediate	   : in std_logic_vector(31 downto 0);
 		instruction_in : in std_logic_vector(31 downto 0);
-		
+		npc_in 			: in integer;
 		ALU_output  	: out std_logic_vector(31 downto 0);
 		B_operand 		: out std_logic_vector(31 downto 0);
 		branch_cond		: out std_logic;
-		instruction_out	: out std_logic_vector(31 downto 0)
+		instruction_out	: out std_logic_vector(31 downto 0);
+		npc_out 		: out integer
 	  );
 END execute;
 
