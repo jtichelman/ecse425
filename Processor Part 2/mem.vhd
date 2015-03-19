@@ -25,7 +25,7 @@ end mem;
 architecture behaviour of mem is
 	signal INST : integer;
 	Begin
-		INSTRUCTION_OUT <= INSTRUCTION;
+		INSTRUCTION_OUT <= INSTRUCTION_IN;
 		process0 : process(CLK, ENABLE)
 		begin
 			if(CLK'EVENT and CLK = '1') then

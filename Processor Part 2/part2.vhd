@@ -62,8 +62,8 @@ Architecture implementation of part2 is
 			Address	: out std_logic_vector(25 downto 0);
 			s_register, t_register, immediate	:	out std_logic_vector(31 downto 0);
 			npc_in	: 	in integer;
-			instruction_out out std_logic_vector (31 downto 0);
-			npc_out : out integer);
+			instruction_out : out std_logic_vector (31 downto 0);
+			npc_out : out integer
 		);
 	END component;
 		
@@ -108,7 +108,7 @@ Architecture implementation of part2 is
 			ADDRESS_MEM : out integer;
 			LMD : out std_logic_vector(31 downto 0);
 			ALU_PASS : out std_logic_vector(31 downto 0);
-			INSTRUCTION_OUT : out std_logic_vector (31 downto 0);
+			INSTRUCTION_OUT : out std_logic_vector (31 downto 0)
 		);	
 	end component;
 	
@@ -216,13 +216,13 @@ Architecture implementation of part2 is
 			imm_in : in std_logic_vector(31 downto 0);
 			instruction_in : in std_logic_vector(31 downto 0);
 			
-			op_code : out std_logic_vector(3 downto 0);
+			op_code : out std_logic_vector(5 downto 0);
 			d_reg_out : out std_logic_vector(4 downto 0);
 			shift_out : out std_logic_vector(4 downto 0);
 			address_out : out std_logic_vector(25 downto 0);
 			s_reg_out : out std_logic_vector(31 downto 0);
 			t_reg_out : out std_logic_vector(31 downto 0);
-			imm_out : : out std_logic_vector(31 downto 0);
+			imm_out  : out std_logic_vector(31 downto 0);
 			instruction_out : out std_logic_vector(31 downto 0);
 			
 			-- Additional message passing
@@ -232,7 +232,7 @@ Architecture implementation of part2 is
 	End component;
 	
 	component ex_mem_reg is 
-		PORT (	CLK : in std_logic;=
+		PORT (	CLK : in std_logic;
 			ALU_output : in std_logic_vector(31 downto 0);
 			B_operand : in std_logic_vector(31 downto 0);
 			branch_cond : in std_logic;
@@ -244,7 +244,7 @@ Architecture implementation of part2 is
 			opcode_in : in std_logic_vector(5 downto 0);
 			opcode_out : out std_logic_vector(5 downto 0);
 			instruction_in : in std_logic_vector(31 downto 0);
-			instruction_out : out std_logic_vector(31 downto 0);
+			instruction_out : out std_logic_vector(31 downto 0)
 		);
 	End component;
 	
@@ -339,7 +339,7 @@ Architecture implementation of part2 is
 	signal reg_instruction_in1 : std_logic_vector(31 downto 0);
 	signal reg_instruction_out1 : std_logic_vector(31 downto 0);
 	
-	signal reg_op_code :  std_logic_vector(3 downto 0);
+	signal reg_op_code :  std_logic_vector(5 downto 0);
 	signal reg_d_reg_out :  std_logic_vector(4 downto 0);
 	signal reg_shift_out :  std_logic_vector(4 downto 0);
 	signal reg_address_out :  std_logic_vector(25 downto 0);
@@ -381,15 +381,15 @@ Architecture implementation of part2 is
 		ID_stage: instruction_decode port map (	instruction=>reg_instruction_out, wb_addr=>wb_address, wb_val=>wb_data,
 												en=>decode_en, wb_en=>wb_en, clock=>clock, command=>reg_command_in, d_register=>reg_d_reg_in, 
 												shift=>reg_shift_in, Address=>reg_address_in, s_register=>reg_s_reg_in, t_register=>reg_t_reg_in, immediate=>reg_imm_in,
-												npc_in=>reg_npc_out, npc_out=>reg_npc_in1,instruction_in=>reg_instruction_out instruction_out=>reg_instruction_in1);
+												npc_in=>reg_npc_out, npc_out=>reg_npc_in1, instruction_out=>reg_instruction_in1);
 												
 		EX_stage: execute port map (	enable=>execute_en, clock=>clock, op_code=>reg_op_code,d_register=>reg_d_reg_out, shift=>reg_shift_out,
 										address=>reg_address_out, s_register=>reg_s_reg_out, t_register=>reg_t_reg_out, immediate=>reg_imm_out, ALU_output=>reg_alu_output,
-										B_operand=>reg_b_operand, branch_cond=>reg_branch_cond, op_code_out=>reg_opcode_in, instruction_in=>reg_instruction_out1
-										reg_instruction_in2);
+										B_operand=>reg_b_operand, branch_cond=>reg_branch_cond, op_code_out=>reg_opcode_in, instruction_in=>reg_instruction_out1,
+										instruction_out=>reg_instruction_in2);
 										
 		MEM_stage: mem port map (	enable=>mem_en, CLK=>clock, B=>reg_b_operand, ALU_Output=>reg_alu_output, DATA_MEMORY=>data_mem, READ_READY=>rd_ready_mem, 
-									WRITE_DONE=>wr_done_mem, COND=>reg_branch_cond, NPC=>reg_NPC_in2, INSTRUCTION=>reg_opcode_out,INSTRUCTION_IN=>reg_instruction_out2
+									WRITE_DONE=>wr_done_mem, COND=>reg_branch_cond, NPC=>reg_NPC_in2, INSTRUCTION=>reg_opcode_out,INSTRUCTION_IN=>reg_instruction_out2,
 									PC=>reg_NPC_out2, LMD=>reg_lmd_in, READ_EN=>read_en_mem, WRITE_EN=>write_en_mem, WORD_BYTE_MEM=>wordbyte_mem, ADDRESS_MEM=>address_mem,
 									ALU_PASS=>reg_alu_pass, INSTRUCTION_OUT=>reg_instruction_in3);
 									
@@ -414,7 +414,7 @@ Architecture implementation of part2 is
 											reg_t_reg_out, reg_imm_out, reg_instruction_out1, reg_npc_in1, reg_npc_out1);
 											
 		ex_mem_register: ex_mem_reg port map (	clock, reg_alu_output, reg_b_operand, reg_branch_cond, reg_B, reg_alu_output_to_mem,
-												reg_cond_out, reg_npc_out2, reg_npc_in2, reg_opcode_in, reg_opcode_out, reg_instruction_in2, reg_instruction_in2);
+												reg_cond_out, reg_npc_in2, reg_npc_out2, reg_opcode_in, reg_opcode_out, reg_instruction_in2, reg_instruction_in2);
 	
-		mem_wb_register: mem_wb_reg port map (clock, reg_lmd_in, reg_alu_pass, reg_from_alu, reg_from_mem, reg_opcode_in1, reg_opcode_in2, reg_instruction_in3, reg_instruction_out3);
+		mem_wb_register: mem_wb_reg port map (clock, reg_lmd_in, reg_alu_pass, reg_from_alu, reg_from_mem, reg_instruction_in3, reg_instruction_out3);
 End implementation;

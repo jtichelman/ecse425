@@ -13,7 +13,7 @@ entity if_id_reg is
 			instruction_out : out std_logic_vector(31 downto 0);
 			
 			-- Message passing
-			npc_out : out integer;
+			npc_out : out integer
 		);
 end if_id_reg;
 
@@ -24,5 +24,6 @@ architecture behaviour of if_id_reg is
 			if (CLK'EVENT and CLK = '0') then
 				instruction_out <= instruction_in;
 				npc_out <= npc_in;
+			end if;
 		end process;	
 end behaviour;

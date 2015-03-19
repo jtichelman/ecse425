@@ -22,7 +22,7 @@ entity id_ex_reg is
 			address_out : out std_logic_vector(25 downto 0);
 			s_reg_out : out std_logic_vector(31 downto 0);
 			t_reg_out : out std_logic_vector(31 downto 0);
-			imm_out : : out std_logic_vector(31 downto 0);
+			imm_out  : out std_logic_vector(31 downto 0);
 			instruction_out : out std_logic_vector(31 downto 0);
 			
 			-- Additional message passing
@@ -43,7 +43,7 @@ architecture behaviour of id_ex_reg is
 				s_reg_out <= s_reg_in;
 				t_reg_out <= t_reg_in;
 				imm_out <= imm_in;
-				instruction_out<=instruction_in
+				instruction_out<=instruction_in;
 				
 				npc_out <= npc_in;
 			end if;

@@ -15,7 +15,7 @@ entity mem_wb_reg is
 			
 			-- Messages
 			instruction_in : in std_logic_vector(31 downto 0);
-			instruction_out : in std_logic_vector(31 downto 0)
+			instruction_out : out std_logic_vector(31 downto 0)
 		);
 end mem_wb_reg;
 
@@ -26,8 +26,7 @@ architecture behaviour of mem_wb_reg is
 			if (CLK'EVENT and CLK='0') then
 				from_alu <= ALU_pass;
 				from_mem <= LMD_in;
-				instruction<=instruction_in;
-				opcode_out <= opcode_in;
+				instruction_out<=instruction_in;
 			end if;
 		end process;
 end behaviour;
