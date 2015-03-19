@@ -15,7 +15,7 @@ entity id_ex_reg is
 			imm_in : in std_logic_vector(31 downto 0);
 			
 			-- Inputs to EX
-			op_code : out std_logic_vector(3 downto 0);
+			op_code : out std_logic_vector(5 downto 0);
 			d_reg_out : out std_logic_vector(4 downto 0);
 			shift_out : out std_logic_vector(4 downto 0);
 			address_out : out std_logic_vector(25 downto 0);
@@ -43,6 +43,7 @@ architecture behaviour of id_ex_reg is
 				imm_out <= imm_in;
 				
 				npc_out <= npc_in;
+			end if;
 		end process;
 end behaviour;
 			
