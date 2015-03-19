@@ -9,7 +9,7 @@ entity hazard_detection_unit is
 				dest_check1, dest_check2 : in std_logic_vector(31 downto 0);
 				check : in std_logic;
 				
-				ok1, ok2 : out std_logic;
+				ok1, ok2 : out std_logic
 			);
 end hazard_detection_unit;
 
@@ -36,7 +36,8 @@ architecture behaviour of hazard_detection_unit is
 					if(dests(i)=dest_check2) then
 						c2<='1';
 					end if;
-				end loop
+				end loop;
+			end if;
 		end process;
 		
 		addDestination : process(add_destination)
@@ -60,7 +61,7 @@ architecture behaviour of hazard_detection_unit is
 				else
 					head_pointer<=head_pointer+1;
 				end if;
-			dests(head_pointer) = "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
+			dests(head_pointer) <= "UUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU";
 			end if;
 		end process;
 				
