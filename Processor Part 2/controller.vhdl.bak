@@ -15,7 +15,7 @@ architecture behaviour of controller is
 		variable count : integer := -1;
 		Begin
 			if(clock'EVENT and clock = '0') then
-			if (count = 23) then
+			if (count = 6) then
 			  count := 0;
 			else 
 			  count := count + 1;

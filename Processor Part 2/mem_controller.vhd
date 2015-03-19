@@ -59,7 +59,7 @@ Architecture implementation of mem_controller is
 			case current_state is
 				--Waiting for input from either IF stage or MEM stage
 				when INPUT_STATE =>
-					data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+					--data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 					if read_en_if = '1' then	--IF read
 						read_en_out <= '1';
 						write_en_out <= '0';
@@ -115,6 +115,7 @@ Architecture implementation of mem_controller is
 				when WRITE_STATE =>
 					rd_ready_if <= '0';
 					rd_ready_mem <= '0';
+					--data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 					if (wr_done_in = '1') then
 						write_en_out <= '0';
 						wr_done_mem <= '1';
