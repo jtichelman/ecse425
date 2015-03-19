@@ -1,0 +1,408 @@
+m255
+K3
+13
+cModel Technology
+dC:\Users\Henry\Dropbox\My Documents\Fourth Year\Computer Organization and Architecture\Project\Part 2
+Econtroller
+Z0 w1426715288
+Z1 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z2 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z3 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z4 dC:\Users\Henry\Dropbox\My Documents\GitHub\ecse425\Processor Part 2
+Z5 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/controller.vhdl
+Z6 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/controller.vhdl
+l0
+L5
+VOM^6=OKO^FJ`jhG<T69nA0
+Z7 OV;C;10.1e;51
+32
+Z8 !s108 1426715290.397000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/controller.vhdl|
+Z10 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/controller.vhdl|
+Z11 o-work work -2002 -explicit -O0
+Z12 tExplicit 1
+!s100 1m=2@3HQ3oLm7ZYA?1]NC3
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 10 controller 0 22 OM^6=OKO^FJ`jhG<T69nA0
+l12
+L11
+VaFoXV3MNbEEEdChk7^7_P1
+R7
+32
+R8
+R9
+R10
+R11
+R12
+!s100 B8gTC1iB^c:92D5O8aoa43
+!i10b 1
+Eexecute
+Z13 w1426612877
+R1
+R2
+R3
+R4
+Z14 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/execute.vhd
+Z15 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/execute.vhd
+l0
+L5
+V1Ued47o5jQ96Y7_@QfJNP0
+R7
+32
+Z16 !s108 1426702000.536000
+Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/execute.vhd|
+Z18 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/execute.vhd|
+R11
+R12
+!s100 I]f28NTVake^PZd?lUg=_0
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 7 execute 0 22 1Ued47o5jQ96Y7_@QfJNP0
+l31
+L25
+V?KYmnhhQg^_:HY6i;jVFC1
+R7
+32
+R16
+R17
+R18
+R11
+R12
+!s100 KbH5VSI_L>jX:WMl4:bgX1
+!i10b 1
+Efetch_stage
+Z19 w1426716787
+R1
+R2
+R3
+R4
+Z20 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/fetch_stage.vhd
+Z21 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/fetch_stage.vhd
+l0
+L9
+VCMkc:T?0l:7NCbeAz>aEI3
+!s100 >QNdGMkl<kb4mXoO3X?nV0
+R7
+32
+!i10b 1
+Z22 !s108 1426716819.796000
+Z23 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/fetch_stage.vhd|
+Z24 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/fetch_stage.vhd|
+R11
+R12
+Aimplementation
+R1
+R2
+R3
+Z25 DEx4 work 11 fetch_stage 0 22 CMkc:T?0l:7NCbeAz>aEI3
+l46
+L42
+V`HYXz8io6KLMI>P;`F^kI2
+!s100 d_zh0GIZGgV9hm_5SozNd0
+R7
+32
+!i10b 1
+R22
+R23
+R24
+R11
+R12
+Einstruction_decode
+Z26 w1426710795
+R1
+R2
+R3
+R4
+Z27 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/instruction_decode.vhd
+Z28 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/instruction_decode.vhd
+l0
+L5
+VS:Ik;zYk@NYI4na;Z4^L52
+R7
+32
+Z29 !s108 1426710798.320000
+Z30 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/instruction_decode.vhd|
+Z31 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/instruction_decode.vhd|
+R11
+R12
+!s100 lZPN67zK9cS3;N:oz7X591
+!i10b 1
+Abehav
+R1
+R2
+R3
+DEx4 work 18 instruction_decode 0 22 S:Ik;zYk@NYI4na;Z4^L52
+l25
+L18
+VTMZYd<>7I]jof:1e2HFWO1
+R7
+32
+R29
+R30
+R31
+R11
+R12
+!s100 _odgXNROlLa>Ozn54UDC`3
+!i10b 1
+Emain_memory
+Z32 w1425494146
+R2
+R3
+R4
+Z33 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/Main_Memory.vhd
+Z34 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/Main_Memory.vhd
+l0
+L5
+V5a_8^b`hKd3XGQaMkbUba2
+R7
+32
+Z35 !s108 1426702001.036000
+Z36 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/Main_Memory.vhd|
+Z37 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/Main_Memory.vhd|
+R11
+R12
+!s100 K3VgC7nUXd;:`mXm@_O^h2
+!i10b 1
+Abehavioural
+R2
+R3
+DEx4 work 11 main_memory 0 22 5a_8^b`hKd3XGQaMkbUba2
+l65
+L29
+V7Hgk_ccm_H@Y6DjSeMOWf2
+R7
+32
+R35
+R36
+R37
+R11
+R12
+!s100 ]8D5GM5`>EXU5`>Ren1K:2
+!i10b 1
+Emem
+Z38 w1426711651
+R1
+R2
+R3
+R4
+Z39 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/mem.vhd
+Z40 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/mem.vhd
+l0
+L5
+VVem1REjcJkJI`z^52z]lI1
+R7
+32
+Z41 !s108 1426711795.939000
+Z42 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/mem.vhd|
+Z43 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/mem.vhd|
+R11
+R12
+!s100 OLJeT2FjXT6K4[gB[T=Q51
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 3 mem 0 22 Vem1REjcJkJI`z^52z]lI1
+l25
+L23
+VYRNd]RLHJVdU9Y8eG3J>H1
+R7
+32
+R41
+R42
+R43
+R11
+R12
+!s100 2oGdWIO[:h`c^kLLNSQI60
+!i10b 1
+Emem_controller
+Z44 w1426708521
+R1
+R2
+R3
+R4
+Z45 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/mem_controller.vhd
+Z46 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/mem_controller.vhd
+l0
+L9
+Ve1AN3C<SZbf0iPPJll9KS2
+R7
+32
+Z47 !s108 1426708567.613000
+Z48 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/mem_controller.vhd|
+Z49 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/mem_controller.vhd|
+R11
+R12
+!s100 TFBj75[>o0Jz^0<HlM@?11
+!i10b 1
+Aimplementation
+R1
+R2
+R3
+DEx4 work 14 mem_controller 0 22 e1AN3C<SZbf0iPPJll9KS2
+l53
+L47
+V:SY;_258JHd_2;Mo50ecT1
+R7
+32
+R47
+R48
+R49
+R11
+R12
+!s100 S3aF]70Z_^aG8T6=0KVUT0
+!i10b 1
+Ememory_in_byte
+Z50 w1425494174
+R2
+R3
+R4
+Z51 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/Memory_in_byte.vhd
+Z52 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/Memory_in_byte.vhd
+l0
+L5
+VKnTD5<UAE[J_OVB7]@cJk3
+R7
+32
+Z53 !s108 1426702001.598000
+Z54 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/Memory_in_byte.vhd|
+Z55 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/Memory_in_byte.vhd|
+R11
+R12
+!s100 ?azoRNk0=NT<9f_E1MF<^1
+!i10b 1
+Abehavioural
+R2
+R3
+DEx4 work 14 memory_in_byte 0 22 KnTD5<UAE[J_OVB7]@cJk3
+l33
+L29
+V`Q9Y064E_6nhAD@TJl2Da2
+R7
+32
+R53
+R54
+R55
+R11
+R12
+!s100 RlML@EUjYJon5ZPe?leL[1
+!i10b 1
+Epart2
+Z56 w1426716271
+R1
+R2
+R3
+R4
+Z57 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/part2.vhd
+Z58 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/part2.vhd
+l0
+L9
+V`Seb^W53mDbVoSeEf3lW?2
+R7
+32
+Z59 !s108 1426716272.902000
+Z60 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/part2.vhd|
+Z61 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/part2.vhd|
+R11
+R12
+!s100 1[Yacj5C`MB:@FkhIfL5b0
+!i10b 1
+Aimplementation
+R1
+R2
+R3
+DEx4 work 5 part2 0 22 `Seb^W53mDbVoSeEf3lW?2
+l248
+L26
+VVIafm5;o_YODT`4OWd6I63
+R7
+32
+R59
+R60
+R61
+R11
+R12
+!s100 GF1z_jXR6]Xb3`DMXAJ3@3
+!i10b 1
+Etestbench_part2
+Z62 w1426699897
+R1
+R2
+R3
+R4
+Z63 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/testbench_part2.vhd
+Z64 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/testbench_part2.vhd
+l0
+L9
+VIVj@V81D5G>`ZgE9Kc8N;1
+R7
+32
+Z65 !s108 1426702001.911000
+Z66 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/testbench_part2.vhd|
+Z67 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/testbench_part2.vhd|
+R11
+R12
+!s100 S`4ECM:UPU^cP029YUd2I0
+!i10b 1
+Aimplementation
+R1
+R2
+R3
+DEx4 work 15 testbench_part2 0 22 IVj@V81D5G>`ZgE9Kc8N;1
+l40
+L12
+VlH2_G2EfK8B?oTPMmC32X2
+R7
+32
+R65
+R66
+R67
+R11
+R12
+!s100 _H[2`n6Q0oUPIc1G9<_?J2
+!i10b 1
+Ewriteback_stage
+Z68 w1426189316
+R1
+R2
+R3
+R4
+Z69 8C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/writeback_stage.vhd
+Z70 FC:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/writeback_stage.vhd
+l0
+L9
+V]4;aYO@AlTPN195e9kdhg3
+R7
+32
+Z71 !s108 1426702002.020000
+Z72 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/writeback_stage.vhd|
+Z73 !s107 C:/Users/Henry/Dropbox/My Documents/GitHub/ecse425/Processor Part 2/writeback_stage.vhd|
+R11
+R12
+!s100 m4=G<oaTWGWMcgUmSFE6J3
+!i10b 1
+Aimplementation
+R1
+R2
+R3
+DEx4 work 15 writeback_stage 0 22 ]4;aYO@AlTPN195e9kdhg3
+l31
+L30
+V9UV2>E88961:KYgc2;b8B3
+R7
+32
+R71
+R72
+R73
+R11
+R12
+!s100 F^JDWn_I>9cF9heJh7eoS2
+!i10b 1

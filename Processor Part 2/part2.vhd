@@ -37,7 +37,7 @@ Architecture implementation of part2 is
 --			write_done : in std_logic;
 			read_en : out std_logic;
 			read_ready : in std_logic;
-			data_mem : inout std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);
+			data_mem : in std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);
 			
 			--Branch ports
 			pc_in : in integer;
@@ -99,7 +99,8 @@ Architecture implementation of part2 is
 			PC : out integer;
 			READ_EN, WRITE_EN, WORD_BYTE_MEM : out std_logic;
 			ADDRESS_MEM : out integer;
-			LMD : out std_logic_vector(31 downto 0)
+			LMD : out std_logic_vector(31 downto 0);
+			ALU_PASS : out std_logic_vector(31 downto 0)
 		);	
 	end component;
 	
@@ -159,7 +160,7 @@ Architecture implementation of part2 is
 			address_if : in integer;
 			read_en_if : in std_logic;
 			rd_ready_if : out std_logic;
-			data_if : inout std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);  
+			data_if : out std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);  
 			
 			--Ports from MEM stage
 			address_mem : in integer;
@@ -167,7 +168,7 @@ Architecture implementation of part2 is
 			write_en_mem : in std_logic;
 			read_en_mem : in std_logic;
 			wr_done_mem : out std_logic;
-			rd_read_mem : out std_logic;
+			rd_ready_mem : out std_logic;
 			data_mem : inout std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0); 
 		
 			--Ports to main memory
@@ -178,6 +179,12 @@ Architecture implementation of part2 is
 			read_en_out : out std_logic;
 			rd_ready_in : in std_logic;
 			data_inout : inout std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0)
+		);
+	end component;
+	
+	Component controller is
+	   PORT (	clock : in std_logic;
+			IF_en, ID_en, EX_en, MEM_en, WB_en :  out std_logic
 		);
 	end component;
 	
@@ -193,8 +200,9 @@ Architecture implementation of part2 is
 	signal address_if : integer;
 	signal read_en_if : std_logic;
 	signal rd_ready_if : std_logic;
-	signal data_if : std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);  
-	
+	signal data_if_signal : std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0); 
+	signal data_if_temp : std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0); 
+	 
 	-- Decode signals
 	signal wb_address : std_logic_vector(4 downto 0);
 	signal wb_data : std_logic_vector(31 downto 0);
@@ -214,6 +222,7 @@ Architecture implementation of part2 is
 	signal instruction : integer;
 	signal npc_mem : integer;
 	signal mem_output : std_logic_vector(31 downto 0);
+	signal alu_pass_signal: std_logic_vector(31 downto 0);
 	signal address_mem : integer;
 	signal data_mem : std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0); 
 	signal rd_ready_mem : std_logic;
@@ -237,7 +246,7 @@ Architecture implementation of part2 is
 	signal data_inout : std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);
 	
 	Begin
-		IF_stage: fetch_stage port map (clock, fetch_enable, address_if, read_en_if, rd_ready_if, data_if,
+		IF_stage: fetch_stage port map (clock, fetch_enable, address_if, read_en_if, rd_ready_if, data_if_signal,
 										pc_in, instruction_if, npc_if);
 										
 		ID_stage: instruction_decode port map (	instruction=>instruction_if, wb_addr=>wb_address, wb_val=>wb_data,
@@ -250,18 +259,20 @@ Architecture implementation of part2 is
 										
 		MEM_stage: mem port map (	enable=>mem_en, CLK=>clock, B=>b_operand, ALU_Output=>alu_out, DATA_MEMORY=>data_mem, READ_READY=>rd_ready_mem, 
 									WRITE_DONE=>wr_done_mem, COND=>branch_cond, NPC=>npc_if, INSTRUCTION=>op_code,
-									PC=>npc_mem, LMD=>mem_output, READ_EN=>read_en_mem, WRITE_EN=>write_en_mem, WORD_BYTE_MEM=>wordbyte_mem, ADDRESS_MEM=>address_mem
-									);
+									PC=>pc_in, LMD=>mem_output, READ_EN=>read_en_mem, WRITE_EN=>write_en_mem, WORD_BYTE_MEM=>wordbyte_mem, ADDRESS_MEM=>address_mem,
+									ALU_PASS=>alu_pass_signal);
 									
-		WB_stage: writeback_stage port map (	reg_enable=>wb_en, clock=>clock, from_mem=>alu_out, from_alu=>b_operand, instruction=>instruction_if,
-												reg_address=>reg_address, write_data=>write_data, write_back_en=>write_back_enable);
+		WB_stage: writeback_stage port map (	reg_enable=>wb_en, clock=>clock, from_mem=>mem_output, from_alu=>alu_pass_signal, instruction=>instruction_if,
+												reg_address=>wb_address, write_data=>wb_data, write_back_en=>write_back_enable);
 												
 		memory_module : main_memory port map ( 	clock, address_out, word_byte_out, write_en_out, wr_done_in, read_en_out, rd_ready_in,
-												data_inout, init_signal, dump_signal); 
+												data_inout, initialize, dump); 
 												
-		mem_con : mem_controller port map (	clock, address_if, read_en_if, rd_ready_if, data_if, address_mem, wordbyte_mem,
+		mem_con : mem_controller port map (	clock, address_if, read_en_if, rd_ready_if, data_if_signal, address_mem, wordbyte_mem,
 											write_en_mem, read_en_mem, wr_done_mem, rd_ready_mem, data_mem, 
 											address_out, word_byte_out, write_en_out, wr_done_in, read_en_out,
 											rd_ready_in, data_inout);
+	  con: controller port map ( clock => clock, IF_en =>fetch_enable, ID_en=>decode_en, EX_en=>execute_en,
+	                             MEM_en=>mem_en, WB_en=>write_back_enable);
 	
 End implementation;

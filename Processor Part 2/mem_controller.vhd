@@ -22,7 +22,7 @@ entity mem_controller is
 		address_if : in integer;
 		read_en_if : in std_logic;
 		rd_ready_if : out std_logic;
-		data_if : inout std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);  
+		data_if : out std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);  
 		
 		--Ports from MEM stage
 		address_mem : in integer;
@@ -51,6 +51,7 @@ Architecture implementation of mem_controller is
 	signal current_state : mem_state := INPUT_STATE;
 	
 	Begin
+	--data_if<="10101010101010101101010101010101";
 	
 	mem_process : process(clock)
 	Begin
@@ -58,8 +59,7 @@ Architecture implementation of mem_controller is
 			case current_state is
 				--Waiting for input from either IF stage or MEM stage
 				when INPUT_STATE =>
-					data_if <= "ZZZZZZZZZZZZZZZZZZZZZZ";
-					data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZ";
+					--data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 					if read_en_if = '1' then	--IF read
 						read_en_out <= '1';
 						write_en_out <= '0';
@@ -84,7 +84,7 @@ Architecture implementation of mem_controller is
 						address_out <= address_mem;
 						word_byte_out <= wordbyte_mem;
 						current_state <= INPUT_STATE;
-						data_inout <= "ZZZZZZZZZZZZZZZZZZZZZZ";
+						data_inout <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 					end if;
 				
 				--Perform read operation on main memory
@@ -95,13 +95,15 @@ Architecture implementation of mem_controller is
 					if (rd_ready_in = '1') then
 						read_en_out <= '0';
 						if (read_en_if = '1') then	-- Read to fetch
+						 
+						  --data_if<="10101010101010101101010101010101";
 							data_if <= data_inout;
-							data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZ";
+							data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 							rd_ready_if <= '1';
-						end if;
-						if (read_en_mem = '1') then	--Read to MEM
+						
+						elsif (read_en_mem = '1') then	--Read to MEM
 							data_mem <= data_inout;
-							data_if <= "ZZZZZZZZZZZZZZZZZZZZZZ";
+							data_if <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 							rd_ready_mem <='1';
 						end if;
 						current_state <= INPUT_STATE;
@@ -113,6 +115,7 @@ Architecture implementation of mem_controller is
 				when WRITE_STATE =>
 					rd_ready_if <= '0';
 					rd_ready_mem <= '0';
+					--data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 					if (wr_done_in = '1') then
 						write_en_out <= '0';
 						wr_done_mem <= '1';

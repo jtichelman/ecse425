@@ -15,26 +15,28 @@ entity mem is
 				PC : out integer;
 				READ_EN, WRITE_EN, WORD_BYTE_MEM : out std_logic;
 				ADDRESS_MEM : out integer;
-				LMD : out std_logic_vector(31 downto 0)
+				LMD : out std_logic_vector(31 downto 0);
+				ALU_PASS : out std_logic_vector(31 downto 0)
 			);			
 end mem;
 
 architecture behaviour of mem is
 	signal INST : integer;
 	Begin
-		INST<=to_integer(unsigned(INSTRUCTION));
+		
 		process0 : process(CLK, ENABLE)
 		begin
 			if(CLK'EVENT and CLK = '1') then
 				if(ENABLE = '1') then
+				  INST<=to_integer(unsigned(INSTRUCTION));
 					CASE INST is
 						--ALU Instructions
-						WHEN 0 to 20=>
+						WHEN 0 to 19=>
 							PC <= NPC;
-							LMD <= ALU_Output;
+							ALU_PASS <= ALU_Output;
 							
 						--Load Word	
-						WHEN 21 =>
+						WHEN 20 =>
 							READ_EN <= '1';
 							WRITE_EN <= '0';
 							WORD_BYTE_MEM <= '1';
@@ -45,7 +47,7 @@ architecture behaviour of mem is
 							end if;							
 
 						--Load Byte	
-						WHEN 22 =>
+						WHEN 21 =>
 							READ_EN <= '1';
 							WRITE_EN <= '0';
 							WORD_BYTE_MEM <= '0';
@@ -56,7 +58,7 @@ architecture behaviour of mem is
 							end if;	
 							
 						--Store Word
-						WHEN 23 =>
+						WHEN 22 =>
 							READ_EN <= '0';
 							WRITE_EN <= '1';
 							WORD_BYTE_MEM <= '1';
@@ -67,7 +69,7 @@ architecture behaviour of mem is
 							end if;	
 						
 						--Store Byte
-						WHEN 24 =>
+						WHEN 23 =>
 							READ_EN <= '0';
 							WRITE_EN <= '1';
 							WORD_BYTE_MEM <= '0';
@@ -80,11 +82,19 @@ architecture behaviour of mem is
 						--Branch instruction
 						WHEN others =>
 							if(COND = '1') then
+<<<<<<< HEAD
 								PC <= to_integer(unsigned(ALU_Output));
 								LMD <= std_logic_vector(signed(NPC-4));
 							else
 								PC <= NPC;
 								LMD <= std_logic_vector(signed(NPC-4));
+=======
+								PC <= NPC - 4 + to_integer(unsigned(ALU_Output))*4;
+								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
+							else
+								PC <= NPC;
+								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
+>>>>>>> 0c605889e13898437102749c70aef6e64e189f9b
 							end if;
 					END CASE;
 				END IF;

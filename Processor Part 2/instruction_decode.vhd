@@ -39,7 +39,7 @@ begin
 	variable shift_by: integer range 0 to 31; --Holds the amount to shift by for shift operations
 	variable write_to: integer range 0 to 31;
 	begin
-		if (clock = '0' and clock'event) then
+		if (clock = '1' and clock'event) then
 			if (en = '1') then
 				opcode := instruction(31 downto 26);
 				reg_s := to_integer(unsigned(instruction(25 downto 21)));
@@ -63,5 +63,6 @@ begin
 			end if;
 		end if;
 
+  reg(0) <= "00000000000000000000000000000000";
 	end process;
 end behav;
