@@ -35,6 +35,7 @@ architecture behaviour of ex_mem_reg is
 				cond_out <= branch_cond;
 				instruction_out<=instruction_in;
 				NPC_out <= NPC_in;
+				opcode_out <=opcode_in;
 			end if;
 		end process;
 end behaviour;

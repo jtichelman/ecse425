@@ -31,6 +31,7 @@ architecture behaviour of mem is
 			if(CLK'EVENT and CLK = '1') then
 				if(ENABLE = '1') then
 				  INST<=to_integer(unsigned(INSTRUCTION));
+				  INSTRUCTION_OUT <= INSTRUCTION_IN;
 					CASE INST is
 						--ALU Instructions
 						WHEN 0 to 19=>

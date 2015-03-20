@@ -21,9 +21,6 @@ Entity fetch_stage is
 		
 		--Memory ports
 		address_mem: out integer;
---		word_byte_mem : out std_logic;
---		write_en : out std_logic;
---		write_done : in std_logic;
 		read_en : out std_logic;
 		read_ready : in std_logic;
 		data_mem : in std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);
@@ -41,16 +38,14 @@ End fetch_stage;
 
 Architecture implementation of fetch_stage is
 	--Signal declarations
-	--variable program_counter : integer range 0 to Mem_Size_in_Word*Num_Bytes_in_Word := 0; --Initialize pc to 0
 
 	Begin
 		fetch_process : process(clock)
 		variable program_counter : integer := 0; --Initialize pc to 0
-		variable first : std_logic:='1';
+		variable first : std_logic:='1';  -- 1 if it is the first instruction (so pc is initialized to 0)
 		Begin
 			if (clock = '1' and clock'event) then
 			  
-			  --data_mem<="11111111111111111111111111111111";
 				if fetch_en = '1' then
 				  if first = '1' then
 			       program_counter := 0;

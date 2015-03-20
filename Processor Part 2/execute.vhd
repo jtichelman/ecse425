@@ -19,6 +19,7 @@ port(
 		ALU_output  	: out std_logic_vector(31 downto 0);
 		B_operand 		: out std_logic_vector(31 downto 0);
 		branch_cond		: out std_logic;
+		opcode_out : out std_logic_vector(5 downto 0);
 		instruction_out	: out std_logic_vector(31 downto 0);
 		npc_out 		: out integer
 	  );
@@ -39,7 +40,9 @@ begin
 	begin
 	if(clock'EVENT and clock = '1') then
 				if(ENABLE = '1') then
-	
+					npc_out<=npc_in;
+					instruction_out<=instruction_in;
+					opcode_out<=op_code;
 					case op_code is	--Check opcode
 						--Arithmetic
 						when "000000" => --add

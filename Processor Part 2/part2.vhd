@@ -82,6 +82,7 @@ Architecture implementation of part2 is
 		ALU_output  	: out std_logic_vector(31 downto 0);
 		B_operand 		: out std_logic_vector(31 downto 0);
 		branch_cond		: out std_logic;
+		opcode_out : out std_logic_vector(5 downto 0);
 		instruction_out	: out std_logic_vector(31 downto 0);
 		npc_out 		: out integer
 	  );
@@ -375,6 +376,7 @@ Architecture implementation of part2 is
 	signal reg_opcode_out :  std_logic_vector(5 downto 0);
 	signal reg_instruction_in2 :  std_logic_vector(31 downto 0);
 	signal reg_instruction_out2:  std_logic_vector(31 downto 0);
+	signal opcode : std_logic_vector(5 downto 0);
 
 	--MEM/WB signals
 
@@ -391,7 +393,7 @@ Architecture implementation of part2 is
 	
 	Begin
 		IF_stage: fetch_stage port map (clock, fetch_enable, address_if, read_en_if, rd_ready_if, data_if_signal,
-										pc_in, reg_instruction_in, reg_npc_in);
+										temp2, reg_instruction_in, reg_npc_in);
 										
 		ID_stage: instruction_decode port map (	instruction=>reg_instruction_out, wb_addr=>wb_address, wb_val=>wb_data,
 												en=>decode_en, wb_en=>wb_en, clock=>clock, command=>reg_command_in, d_register=>reg_d_reg_in, 
@@ -400,10 +402,10 @@ Architecture implementation of part2 is
 												
 		EX_stage: execute port map (	enable=>execute_en, clock=>clock, op_code=>reg_op_code,d_register=>reg_d_reg_out, shift=>reg_shift_out,
 										address=>reg_address_out, s_register=>reg_s_reg_out, t_register=>reg_t_reg_out, immediate=>reg_imm_out, ALU_output=>reg_alu_output,
-										B_operand=>reg_b_operand, branch_cond=>reg_branch_cond,instruction_in=>reg_instruction_out1, instruction_out=>reg_instruction_in2,
+										B_operand=>reg_b_operand, branch_cond=>reg_branch_cond,instruction_in=>reg_instruction_out1, opcode_out=>reg_opcode_in , instruction_out=>reg_instruction_in2,
 										npc_in=>reg_npc_out1, npc_out=>reg_npc_in2);
 		
-		MEM_stage : mem port map (clock, reg_b, reg_alu_output_to_mem, data_mem, mem_en, reg_cond_out, rd_ready_mem, wr_done_mem, reg_npc_out2, op_code, reg_instruction_out2,
+		MEM_stage : mem port map (clock, reg_b, reg_alu_output_to_mem, data_mem, mem_en, reg_cond_out, rd_ready_mem, wr_done_mem, reg_npc_out2, reg_opcode_out, reg_instruction_out2,
 									temp2, read_en_mem, write_en_mem, wordbyte_mem, address_mem, reg_lmd_in, reg_alu_pass, reg_instruction_in3);
 			
 --		MEM_stage: mem port map (	enable=>mem_en, CLK=>clock, B=>reg_b, ALU_Output=>reg_alu_output_to_mem, DATA_MEMORY=>data_mem, READ_READY=>rd_ready_mem, 
@@ -411,7 +413,7 @@ Architecture implementation of part2 is
 --									PC=>temp2, LMD=>mem_output, READ_EN=>read_en_mem, WRITE_EN=>write_en_mem, WORD_BYTE_MEM=>wordbyte_mem, ADDRESS_MEM=>address_mem,
 --									ALU_PASS=>alu_pass_signal, INSTRUCTION_IN=>reg_instruction_out2, INSTRUCTION_OUT=>temp1);
 									
-		WB_stage: writeback_stage port map (	reg_enable=>wb_en, clock=>clock, from_mem=>mem_output, from_alu=>alu_pass_signal, instruction=>instruction_if,
+		WB_stage: writeback_stage port map (	reg_enable=>wb_en, clock=>clock, from_mem=>reg_from_mem, from_alu=>reg_from_alu, instruction=>reg_instruction_out3,
 												reg_address=>wb_address, write_data=>wb_data, write_back_en=>write_back_enable);
 												
 		memory_module : main_memory port map ( 	clock, address_out, word_byte_out, write_en_out, wr_done_in, read_en_out, rd_ready_in,

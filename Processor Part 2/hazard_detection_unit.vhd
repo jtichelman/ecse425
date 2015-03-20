@@ -8,7 +8,6 @@ entity hazard_detection_unit is
 				remove_destination : in std_logic;
 				dest_check1, dest_check2 : in std_logic_vector(31 downto 0);
 				check : in std_logic;
-				
 				ok1, ok2 : out std_logic
 			);
 end hazard_detection_unit;
