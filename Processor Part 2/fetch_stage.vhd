@@ -19,7 +19,7 @@ Entity fetch_stage is
 		clock: in std_logic;
 		fetch_en : in std_logic;
 		
-		--Memory ports
+		--Ports to connect to memory controller
 		address_mem: out integer;
 		read_en : out std_logic;
 		read_ready : in std_logic;
@@ -37,7 +37,6 @@ Entity fetch_stage is
 End fetch_stage;
 
 Architecture implementation of fetch_stage is
-	--Signal declarations
 
 	Begin
 		fetch_process : process(clock)
@@ -47,28 +46,24 @@ Architecture implementation of fetch_stage is
 			if (clock = '1' and clock'event) then
 			  
 				if fetch_en = '1' then
-				  if first = '1' then
-			       program_counter := 0;
-			     else
-			       program_counter := pc_in;
-			     end if;  
+					if first = '1' then
+						program_counter := 0;	--First instruction at address 0
+					else
+						program_counter := pc_in;	--Else use the value of PC_in
+					end if;  
 					read_en <= '1';
---					write_en<='0';
---					word_byte_mem <= '1';
 					address_mem <= program_counter;
 					--Check for read_ready and wait in this state if not ready
 					if (read_ready = '1') then
 						read_en <= '0';
 						--Write instruction to IF/ID register
 						instruction_out <= data_mem;
-												
-						--program_counter <= program_counter + 4;	--increment PC to next word
-						
+																		
 						pc_out <= program_counter +4; --increment next PC to next word
 					end if;
 				end if;
 				if(fetch_en = '0' and first='1') then
-				  first := '0';
+				  first := '0';	--PC no longer needs to be initialized to 0
 				end if;
 			end if;
 		end process;

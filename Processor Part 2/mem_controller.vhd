@@ -1,6 +1,7 @@
 --Computer Org. and Arch. Project Part 2
 --Tai Hung (Henry) Lu, Saki Kajita, Jeffrey Tichelman, Francois Parent
---Description: Memory controller for interacting with main memory
+--Description: Memory controller for interacting with main memory. 
+--Deals with the IF stage and MEM stage both trying to access main memory
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
@@ -51,7 +52,6 @@ Architecture implementation of mem_controller is
 	signal current_state : mem_state := INPUT_STATE;
 	
 	Begin
-	--data_if<="10101010101010101101010101010101";
 	
 	mem_process : process(clock)
 	Begin
@@ -59,7 +59,6 @@ Architecture implementation of mem_controller is
 			case current_state is
 				--Waiting for input from either IF stage or MEM stage
 				when INPUT_STATE =>
-					--data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 					if read_en_if = '1' then	--IF read
 						read_en_out <= '1';
 						write_en_out <= '0';
@@ -94,9 +93,8 @@ Architecture implementation of mem_controller is
 					rd_ready_mem <= '0';
 					if (rd_ready_in = '1') then
 						read_en_out <= '0';
-						if (read_en_if = '1') then	-- Read to fetch
+						if (read_en_if = '1') then	-- Read to fetch stage
 						 
-						  --data_if<="10101010101010101101010101010101";
 							data_if <= data_inout;
 							data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 							rd_ready_if <= '1';
@@ -115,7 +113,6 @@ Architecture implementation of mem_controller is
 				when WRITE_STATE =>
 					rd_ready_if <= '0';
 					rd_ready_mem <= '0';
-					--data_mem <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
 					if (wr_done_in = '1') then
 						write_en_out <= '0';
 						wr_done_mem <= '1';

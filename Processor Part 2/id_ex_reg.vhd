@@ -1,3 +1,5 @@
+--Set of registers between the ID and EX stages
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
@@ -35,6 +37,7 @@ architecture behaviour of id_ex_reg is
 	Begin
 		process0 : process(CLK)
 		Begin
+			--Simply pass signals through the registers
 			if(CLK'EVENT and CLK='0') then
 				op_code <= command_in;
 				d_reg_out <= d_reg_in;

@@ -1,3 +1,5 @@
+--Execute stage of five-stage processor
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -16,10 +18,11 @@ port(
 		immediate	   : in std_logic_vector(31 downto 0);
 		instruction_in : in std_logic_vector(31 downto 0);
 		npc_in 			: in integer;
+		
 		ALU_output  	: out std_logic_vector(31 downto 0);
 		B_operand 		: out std_logic_vector(31 downto 0);
 		branch_cond		: out std_logic;
-		opcode_out : out std_logic_vector(5 downto 0);
+		opcode_out 		: out std_logic_vector(5 downto 0);
 		instruction_out	: out std_logic_vector(31 downto 0);
 		npc_out 		: out integer
 	  );
@@ -28,22 +31,22 @@ END execute;
 
 Architecture behaviour of execute is
 
-signal reg_HI			: std_logic_vector(31 downto 0);
-signal reg_LO 			: std_logic_vector(31 downto 0);
+signal reg_HI			: std_logic_vector(31 downto 0);	--$HI
+signal reg_LO 			: std_logic_vector(31 downto 0);	--$LO
 signal error 			: std_logic;
 
 begin
-
 
 	Execution: process(clock)
 	variable HI_LO			: std_logic_vector(63 downto 0);
 	begin
 	if(clock'EVENT and clock = '1') then
 				if(ENABLE = '1') then
+					--These signals are just passed through, unchanged
 					npc_out<=npc_in;
 					instruction_out<=instruction_in;
 					opcode_out<=op_code;
-					case op_code is	--Check opcode
+					case op_code is	--Check opcode to determine function
 						--Arithmetic
 						when "000000" => --add
 							ALU_output <= std_logic_vector(signed(s_register) + signed(t_register));

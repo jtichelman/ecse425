@@ -1,3 +1,5 @@
+--Set of registers between MEM and WB stages
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
@@ -23,6 +25,7 @@ architecture behaviour of mem_wb_reg is
 	Begin
 		process0 : process(CLK)
 		Begin
+			--Simply pass the signals through the registers
 			if (CLK'EVENT and CLK='0') then
 				from_alu <= ALU_pass;
 				from_mem <= LMD_in;

@@ -1,6 +1,6 @@
 --Computer Org. and Arch. Project Part 2
 --Tai Hung (Henry) Lu, Saki Kajita, Jeffrey Tichelman, Francois Parent
---Description: Top level entity description for Part 2
+--Description: Top level entity description for Part 2. Connects everything together
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
@@ -32,9 +32,6 @@ Architecture implementation of part2 is
 			fetch_en : in std_logic;
 			--Memory ports
 			address_mem: out integer;
---			word_byte_mem : out std_logic;
---			write_en : out std_logic;
---			write_done : in std_logic;
 			read_en : out std_logic;
 			read_ready : in std_logic;
 			data_mem : in std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);
@@ -188,12 +185,14 @@ Architecture implementation of part2 is
 		);
 	end component;
 	
+	--Controller component
 	Component controller is
 	   PORT (	clock : in std_logic;
 			IF_en, ID_en, EX_en, MEM_en, WB_en :  out std_logic
 		);
 	end component;
 	
+	--IF/ID registers
 	Component if_id_reg is
 	PORT (	CLK : in std_logic;
 	
@@ -209,6 +208,7 @@ Architecture implementation of part2 is
 		);
 	End component;
 	
+	--ID/EX registers
 	Component id_ex_reg is
 	PORT (	CLK : in std_logic;
 	
@@ -238,6 +238,7 @@ Architecture implementation of part2 is
 		);
 	End component;
 	
+	--EX/MEM registers
 	Component ex_mem_reg is
 	PORT (	CLK : in std_logic;
 	
@@ -261,6 +262,7 @@ Architecture implementation of part2 is
 		);
 	End component;
 	
+	--MEM/WB registers
 	Component mem_wb_reg is
 	PORT (	CLK : in std_logic;
 	
@@ -326,7 +328,7 @@ Architecture implementation of part2 is
 	signal write_data : std_logic_vector(31 downto 0);
 	signal reg_address : std_logic_vector (4 downto 0);
 	
-	--Memory controler signals
+	--Memory controller signals
 	signal address_out : integer;
 	signal word_byte_out : std_logic;
 	signal write_en_out : std_logic;
@@ -387,11 +389,12 @@ Architecture implementation of part2 is
 	signal reg_instruction_in3 :  std_logic_vector(31 downto 0);
 	signal reg_instruction_out3 :  std_logic_vector(31 downto 0);
 		
-	
+	--Temporary signals (for testing)
 	signal temp1: std_logic_vector (31 downto 0);
 	signal temp2 : integer;
 	
 	Begin
+		--Port maps for each of the components
 		IF_stage: fetch_stage port map (clock, fetch_enable, address_if, read_en_if, rd_ready_if, data_if_signal,
 										temp2, reg_instruction_in, reg_npc_in);
 										
@@ -407,11 +410,6 @@ Architecture implementation of part2 is
 		
 		MEM_stage : mem port map (clock, reg_b, reg_alu_output_to_mem, data_mem, mem_en, reg_cond_out, rd_ready_mem, wr_done_mem, reg_npc_out2, reg_opcode_out, reg_instruction_out2,
 									temp2, read_en_mem, write_en_mem, wordbyte_mem, address_mem, reg_lmd_in, reg_alu_pass, reg_instruction_in3);
-			
---		MEM_stage: mem port map (	enable=>mem_en, CLK=>clock, B=>reg_b, ALU_Output=>reg_alu_output_to_mem, DATA_MEMORY=>data_mem, READ_READY=>rd_ready_mem, 
---									WRITE_DONE=>wr_done_mem, COND=>reg_cond_out, NPC=>reg_npc_out2, INSTRUCTION=>op_code,
---									PC=>temp2, LMD=>mem_output, READ_EN=>read_en_mem, WRITE_EN=>write_en_mem, WORD_BYTE_MEM=>wordbyte_mem, ADDRESS_MEM=>address_mem,
---									ALU_PASS=>alu_pass_signal, INSTRUCTION_IN=>reg_instruction_out2, INSTRUCTION_OUT=>temp1);
 									
 		WB_stage: writeback_stage port map (	reg_enable=>wb_en, clock=>clock, from_mem=>reg_from_mem, from_alu=>reg_from_alu, instruction=>reg_instruction_out3,
 												reg_address=>wb_address, write_data=>wb_data, write_back_en=>write_back_enable);

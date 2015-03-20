@@ -1,3 +1,5 @@
+--ID stage of the five-stage processor
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -145,7 +147,7 @@ begin
 				 end if;
 			end if;
 			
-  end if;
-  reg(0) <= "00000000000000000000000000000000";
+		end if;
+		reg(0) <= "00000000000000000000000000000000";
 	end process;
 end behav;

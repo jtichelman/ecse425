@@ -32,6 +32,7 @@ Architecture implementation of testbench_part2 is
 		dump : in std_logic
 	);
 	End component;
+	
 	--Signal declarations
 	signal clock : std_logic := '0';
 	signal initialize : std_logic := '0';
@@ -59,7 +60,7 @@ Architecture implementation of testbench_part2 is
 			initialize <='1';
 			wait for clock_period;
 			initialize <='0';
-			wait for 500 ns;	--Wait until all instructions have been executed, then dump
+			wait for 2000 ns;	--Wait until all instructions have been executed, then dump. Simulate for longer than this amount!!
 			dump<='1';
 			wait for clock_period;
 			dump<='0';

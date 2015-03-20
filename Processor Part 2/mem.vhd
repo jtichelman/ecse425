@@ -1,3 +1,5 @@
+--MEM stage of five-stage processor
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
@@ -30,8 +32,10 @@ architecture behaviour of mem is
 		begin
 			if(CLK'EVENT and CLK = '1') then
 				if(ENABLE = '1') then
-				  INST<=to_integer(unsigned(INSTRUCTION));
-				  INSTRUCTION_OUT <= INSTRUCTION_IN;
+					INST<=to_integer(unsigned(INSTRUCTION)); --INST stores the opcode
+					INSTRUCTION_OUT <= INSTRUCTION_IN;	--Pass the instruction through to the next stage
+					--ALU instructions just pass signals along.
+					--Load/store/branches have slightly different functions
 					CASE INST is
 						--ALU Instructions
 						WHEN 0 to 19=>

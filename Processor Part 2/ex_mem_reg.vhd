@@ -1,3 +1,5 @@
+--Set of registers between EX and MEM stages
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
@@ -29,6 +31,7 @@ architecture behaviour of ex_mem_reg is
 	Begin
 		process0 : process(CLK)
 		Begin
+			--Pass signals through register
 			if (CLK'EVENT and CLK='0') then
 				ALU_output_to_mem <= ALU_output;
 				B <= B_operand;

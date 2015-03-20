@@ -1,4 +1,6 @@
- LIBRARY ieee;
+--Set of registers between the IF and ID stages
+
+LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
 
@@ -21,6 +23,7 @@ architecture behaviour of if_id_reg is
 	Begin
 		process0 : process(CLK)
 		Begin
+			--Simply pass the signals through the registers
 			if (CLK'EVENT and CLK = '0') then
 				instruction_out <= instruction_in;
 				npc_out <= npc_in;
