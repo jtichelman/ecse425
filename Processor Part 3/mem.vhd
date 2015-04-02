@@ -20,7 +20,8 @@ entity mem is
 			ADDRESS_MEM : out integer;
 			LMD : out std_logic_vector(31 downto 0);
 			ALU_PASS : out std_logic_vector(31 downto 0);
-			INSTRUCTION_OUT : out std_logic_vector (31 downto 0)
+			INSTRUCTION_OUT : out std_logic_vector (31 downto 0);
+			BRANCH_RESOLVED : out std_logic
 		);	
 end mem;
 

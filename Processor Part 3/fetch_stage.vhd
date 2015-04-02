@@ -27,6 +27,7 @@ Entity fetch_stage is
 		
 		--Branch ports
 		pc_in : in integer;
+		is_branch : in std_logic;
 		
 		--Output ports
 		instruction_out : out std_logic_vector(31 downto 0);
@@ -41,12 +42,14 @@ Architecture implementation of fetch_stage is
 		fetch_process : process(clock)
 		variable program_counter : integer := 0; --Initialize pc to 0
 		variable first : std_logic:='1';  -- 1 if it is the first instruction (so pc is initialized to 0)
+		variable one_cycle_ready: std_logic  := '0';
 		Begin
 			if (clock = '1' and clock'event) then
-			  
-				if fetch_en = '1' then
+			  fetch_ready <= '0';
+				if fetch_en = '1' AND is_branch ='0' then
 					if first = '1' then
-						program_counter := 0;	--First instruction at address 0
+						--program_counter := 0;	--First instruction at address 0
+						
 					else
 						program_counter := pc_in;	--Else use the value of PC_in
 					end if;  
@@ -55,10 +58,19 @@ Architecture implementation of fetch_stage is
 					--Check for read_ready and wait in this state if not ready
 					if (read_ready = '1') then
 						read_en <= '0';
+						
 						--Write instruction to IF/ID register
 						instruction_out <= data_mem;
-																		
-						pc_out <= program_counter +4; --increment next PC to next word
+						if (one_cycle_ready = '0') then
+						  fetch_ready <= '1';	
+						  one_cycle_ready := '1';
+						  program_counter := program_counter + 4;
+						else
+						  one_cycle_ready := '0';
+						  fetch_ready<='0';		
+						  
+						end if;									
+						pc_out <= program_counter; --increment next PC to next word
 					end if;
 				end if;
 				if(fetch_en = '0' and first='1') then

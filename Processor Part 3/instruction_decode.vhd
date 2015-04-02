@@ -16,7 +16,8 @@ port( 	instruction		:	in std_logic_vector(31 downto 0);
 		s_register, t_register, immediate	:	out std_logic_vector(31 downto 0);
 		npc_in : in integer;
 		instruction_out: out std_logic_vector(31 downto 0);
-		npc_out : out integer);
+		npc_out : out integer;
+		is_branch : out std_logic := '0');
 END instruction_decode;
 
 architecture behav of instruction_decode is
@@ -83,6 +84,13 @@ begin
 				if( opcode="000000" or opcode="000001" or opcode="000111" or opcode="001000"
 					or opcode="001001" or opcode="001010" or opcode="001110" or opcode="001111") then
 						destination := to_integer(unsigned(instruction(15 downto 11)));
+						if(tail_pointer=2) then
+							tail_pointer<=0;
+							dests(0)<=destination;
+						else
+							tail_pointer<=tail_pointer+1;
+							dests(tail_pointer+1)<=destination;
+						end if;
 				elsif(opcode="000010" or opcode="000110" or opcode="001011" or opcode="001100"
 					or opcode="001101" or opcode="010000" or opcode="010100" or opcode="010101") then
 						destination:= to_integer(unsigned(instruction(20 downto 16)));		

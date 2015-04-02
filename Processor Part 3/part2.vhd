@@ -38,6 +38,7 @@ Architecture implementation of part2 is
 			
 			--Branch ports
 			pc_in : in integer;
+			is_branch : in std_logic;
 			
 			--Output ports
 			instruction_out : out std_logic_vector(31 downto 0);
@@ -58,7 +59,8 @@ Architecture implementation of part2 is
 		s_register, t_register, immediate	:	out std_logic_vector(31 downto 0);
 		npc_in : in integer;
 		instruction_out: out std_logic_vector(31 downto 0);
-		npc_out : out integer);
+		npc_out : out integer;
+		is_branch : out std_logic);
 	END component;
 		
 	--EX stage
@@ -102,7 +104,8 @@ Architecture implementation of part2 is
 			ADDRESS_MEM : out integer;
 			LMD : out std_logic_vector(31 downto 0);
 			ALU_PASS : out std_logic_vector(31 downto 0);
-			INSTRUCTION_OUT : out std_logic_vector (31 downto 0)
+			INSTRUCTION_OUT : out std_logic_vector (31 downto 0);
+			BRANCH_RESOLVED : out std_logic
 		);
 	end component;
 	
@@ -187,7 +190,10 @@ Architecture implementation of part2 is
 	--Controller component
 	Component controller is
 	   PORT (	clock : in std_logic;
-			IF_en, ID_en, EX_en, MEM_en, WB_en :  out std_logic
+	    IF_ready: in std_logic;
+			IF_en, ID_en, EX_en, MEM_en, WB_en :  out std_logic;
+			is_branch, branch_resolved : in std_logic;
+			stall_fetch : out std_logic
 		);
 	end component;
 	
@@ -390,7 +396,7 @@ Architecture implementation of part2 is
 		
 	--Temporary signals (for testing)
 	signal temp1: std_logic_vector (31 downto 0);
-	signal temp2 : integer;
+	signal temp2 : integer := 0;
 	
 	--Ready Signals
 	signal if_ready : std_logic;
@@ -399,15 +405,20 @@ Architecture implementation of part2 is
 	signal mem_ready : std_logic;
 	signal wb_ready : std_logic;
 	
+	--Control signals
+	signal is_branch : std_logic;
+	signal branch_resolved : std_logic;
+	signal stall_fetch : std_logic;
+	
 	Begin
 		--Port maps for each of the components
 		IF_stage: fetch_stage port map (clock, fetch_enable, address_if, read_en_if, rd_ready_if, data_if_signal,
-										temp2, reg_instruction_in, reg_npc_in, if_ready);
+										temp2, stall_fetch, reg_instruction_in, reg_npc_in, if_ready);
 										
 		ID_stage: instruction_decode port map (	instruction=>reg_instruction_out, wb_addr=>wb_address, wb_val=>wb_data,
 												en=>decode_en, wb_en=>wb_en, clock=>clock, command=>reg_command_in, d_register=>reg_d_reg_in, 
 												shift=>reg_shift_in, Address=>reg_address_in, s_register=>reg_s_reg_in, t_register=>reg_t_reg_in, immediate=>reg_imm_in,
-												npc_in=>reg_npc_out, instruction_out=>reg_instruction_in1, npc_out=>reg_npc_in1);
+												npc_in=>reg_npc_out, instruction_out=>reg_instruction_in1, npc_out=>reg_npc_in1, is_branch=>is_branch);
 												
 		EX_stage: execute port map (	enable=>execute_en, clock=>clock, op_code=>reg_op_code,d_register=>reg_d_reg_out, shift=>reg_shift_out,
 										address=>reg_address_out, s_register=>reg_s_reg_out, t_register=>reg_t_reg_out, immediate=>reg_imm_out, ALU_output=>reg_alu_output,
@@ -415,7 +426,7 @@ Architecture implementation of part2 is
 										npc_in=>reg_npc_out1, npc_out=>reg_npc_in2);
 		
 		MEM_stage : mem port map (clock, reg_b, reg_alu_output_to_mem, data_mem, mem_en, reg_cond_out, rd_ready_mem, wr_done_mem, reg_npc_out2, reg_opcode_out, reg_instruction_out2,
-									temp2, read_en_mem, write_en_mem, wordbyte_mem, address_mem, reg_lmd_in, reg_alu_pass, reg_instruction_in3);
+									temp2, read_en_mem, write_en_mem, wordbyte_mem, address_mem, reg_lmd_in, reg_alu_pass, reg_instruction_in3, branch_resolved);
 									
 		WB_stage: writeback_stage port map (	reg_enable=>wb_en, clock=>clock, from_mem=>reg_from_mem, from_alu=>reg_from_alu, instruction=>reg_instruction_out3,
 												reg_address=>wb_address, write_data=>wb_data, write_back_en=>write_back_enable);
@@ -428,7 +439,7 @@ Architecture implementation of part2 is
 											address_out, word_byte_out, write_en_out, wr_done_in, read_en_out,
 											rd_ready_in, data_inout);
 		con: controller port map ( clock => clock, IF_en =>fetch_enable, ID_en=>decode_en, EX_en=>execute_en,
-	                             MEM_en=>mem_en, WB_en=>write_back_enable);
+	                             MEM_en=>mem_en, WB_en=>write_back_enable, IF_ready => if_ready, is_branch => is_branch, branch_resolved => branch_resolved, stall_fetch => stall_fetch);
 								 
 		if_id_register : if_id_reg port map (clock, reg_instruction_in, reg_npc_in, reg_instruction_out, reg_npc_out);
 		
