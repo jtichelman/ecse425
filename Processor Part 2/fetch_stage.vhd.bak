@@ -72,7 +72,7 @@ Architecture implementation of fetch_stage is
 						pc_out <= program_counter +4; --increment next PC to next word
 					end if;
 				end if;
-				if(IF_en = '0' and first='1') then
+				if(fetch_en = '0' and first='1') then
 				  first := '0';
 				end if;
 			end if;

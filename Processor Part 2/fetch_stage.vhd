@@ -19,11 +19,8 @@ Entity fetch_stage is
 		clock: in std_logic;
 		fetch_en : in std_logic;
 		
-		--Memory ports
+		--Ports to connect to memory controller
 		address_mem: out integer;
---		word_byte_mem : out std_logic;
---		write_en : out std_logic;
---		write_done : in std_logic;
 		read_en : out std_logic;
 		read_ready : in std_logic;
 		data_mem : in std_logic_vector((Num_Bytes_in_Word*Num_Bits_in_Byte)-1 downto 0);
@@ -40,40 +37,33 @@ Entity fetch_stage is
 End fetch_stage;
 
 Architecture implementation of fetch_stage is
-	--Signal declarations
-	--variable program_counter : integer range 0 to Mem_Size_in_Word*Num_Bytes_in_Word := 0; --Initialize pc to 0
 
 	Begin
 		fetch_process : process(clock)
 		variable program_counter : integer := 0; --Initialize pc to 0
-		variable first : std_logic:='1';
+		variable first : std_logic:='1';  -- 1 if it is the first instruction (so pc is initialized to 0)
 		Begin
 			if (clock = '1' and clock'event) then
 			  
-			  --data_mem<="11111111111111111111111111111111";
 				if fetch_en = '1' then
-				  if first = '1' then
-			       program_counter := 0;
-			     else
-			       program_counter := pc_in;
-			     end if;  
+					if first = '1' then
+						program_counter := 0;	--First instruction at address 0
+					else
+						program_counter := pc_in;	--Else use the value of PC_in
+					end if;  
 					read_en <= '1';
---					write_en<='0';
---					word_byte_mem <= '1';
 					address_mem <= program_counter;
 					--Check for read_ready and wait in this state if not ready
 					if (read_ready = '1') then
 						read_en <= '0';
 						--Write instruction to IF/ID register
 						instruction_out <= data_mem;
-												
-						--program_counter <= program_counter + 4;	--increment PC to next word
-						
+																		
 						pc_out <= program_counter +4; --increment next PC to next word
 					end if;
 				end if;
 				if(fetch_en = '0' and first='1') then
-				  first := '0';
+				  first := '0';	--PC no longer needs to be initialized to 0
 				end if;
 			end if;
 		end process;

@@ -1,3 +1,5 @@
+--MEM stage of five-stage processor
+
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
@@ -19,18 +21,21 @@ entity mem is
 			LMD : out std_logic_vector(31 downto 0);
 			ALU_PASS : out std_logic_vector(31 downto 0);
 			INSTRUCTION_OUT : out std_logic_vector (31 downto 0)
-		);			
+		);	
 end mem;
 
 architecture behaviour of mem is
 	signal INST : integer;
 	Begin
-		INSTRUCTION_OUT <= INSTRUCTION_IN;
+		
 		process0 : process(CLK, ENABLE)
 		begin
 			if(CLK'EVENT and CLK = '1') then
 				if(ENABLE = '1') then
-				  INST<=to_integer(unsigned(INSTRUCTION));
+					INST<=to_integer(unsigned(INSTRUCTION)); --INST stores the opcode
+					INSTRUCTION_OUT <= INSTRUCTION_IN;	--Pass the instruction through to the next stage
+					--ALU instructions just pass signals along.
+					--Load/store/branches have slightly different functions
 					CASE INST is
 						--ALU Instructions
 						WHEN 0 to 19=>
@@ -84,13 +89,11 @@ architecture behaviour of mem is
 						--Branch instruction
 						WHEN others =>
 							if(COND = '1') then
-
 								PC <= NPC - 4 + to_integer(unsigned(ALU_Output))*4;
 								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
 							else
 								PC <= NPC;
 								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
-
 							end if;
 					END CASE;
 				END IF;

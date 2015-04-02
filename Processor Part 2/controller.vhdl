@@ -1,5 +1,3 @@
---This component controls each of the five stages by setting their enable signals one after the other
-
 LIBRARY ieee;
 USE ieee.std_logic_1164.all;
 USE ieee.numeric_std.all;
@@ -23,27 +21,27 @@ architecture behaviour of controller is
 			  count := count + 1;
 		  end if;
 				CASE count is
-					WHEN 0=>	--Enable IF stage, then wait 8 clock cycles (to make sure instruction is fetched)
+					WHEN 0=>
 						IF_en <='1';
 						wb_en <='0';
 						
 					
-					WHEN 8 =>	--Enable ID stage
+					WHEN 8 =>
 						IF_en<='0';
 						ID_en <='1';
 						
 						
-					WHEN 9 =>	--Enable EX stage
+					WHEN 9 =>
 						ID_en <= '0';
 						EX_en <= '1';
 						
 						
-					WHEN 10 =>	--Enable MEM stage, then wait 8 cycles to make sure load operations complete
+					WHEN 10 =>
 						EX_en <= '0';
 						MEM_en <= '1';
 						
 			
-					WHEN 18 =>	--Enable WB stage, then wait 6 cycles to make sure store operations complete before returning to IF
+					WHEN 18 =>
 						MEM_en <= '0';
 						WB_en <= '1';
 						
