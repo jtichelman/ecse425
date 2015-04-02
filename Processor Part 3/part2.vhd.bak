@@ -392,17 +392,10 @@ Architecture implementation of part2 is
 	signal temp1: std_logic_vector (31 downto 0);
 	signal temp2 : integer;
 	
-	--Ready Signals
-	signal if_ready : std_logic;
-	signal id_ready : std_logic;
-	signal ex_ready : std_logic;
-	signal mem_ready : std_logic;
-	signal wb_ready : std_logic;
-	
 	Begin
 		--Port maps for each of the components
 		IF_stage: fetch_stage port map (clock, fetch_enable, address_if, read_en_if, rd_ready_if, data_if_signal,
-										temp2, reg_instruction_in, reg_npc_in, if_ready);
+										temp2, reg_instruction_in, reg_npc_in);
 										
 		ID_stage: instruction_decode port map (	instruction=>reg_instruction_out, wb_addr=>wb_address, wb_val=>wb_data,
 												en=>decode_en, wb_en=>wb_en, clock=>clock, command=>reg_command_in, d_register=>reg_d_reg_in, 

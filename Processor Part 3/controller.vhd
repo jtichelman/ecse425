@@ -15,40 +15,47 @@ architecture behaviour of controller is
 		variable count : integer := -1;
 		Begin
 			if(clock'EVENT and clock = '0') then
-			if (count = 24) then
-			  count := 0;
-			else 
-			  count := count + 1;
-		  end if;
-				CASE count is
-					WHEN 0=>
-						IF_en <='1';
-						wb_en <='0';
-						
-					
-					WHEN 8 =>
-						IF_en<='0';
-						ID_en <='1';
-						
-						
-					WHEN 9 =>
-						ID_en <= '0';
-						EX_en <= '1';
-						
-						
-					WHEN 10 =>
-						EX_en <= '0';
-						MEM_en <= '1';
-						
-			
-					WHEN 18 =>
-						MEM_en <= '0';
-						WB_en <= '1';
-						
-						
-				  WHEN others =>
-				
-				End case;
+			--if (count = 24) then
+--			  count := 0;
+--			else 
+--			  count := count + 1;
+--		  end if;
+--				CASE count is
+--					WHEN 0=>
+--						IF_en <='1';
+--						wb_en <='0';
+--						
+--					
+--					WHEN 8 =>
+--						IF_en<='0';
+--						ID_en <='1';
+--						
+--						
+--					WHEN 9 =>
+--						ID_en <= '0';
+--						EX_en <= '1';
+--						
+--						
+--					WHEN 10 =>
+--						EX_en <= '0';
+--						MEM_en <= '1';
+--						
+--			
+--					WHEN 18 =>
+--						MEM_en <= '0';
+--						WB_en <= '1';
+--						
+--						
+--				  WHEN others =>
+--				
+--				End case;
+
+      if_en<='1';
+      id_en<='1';
+      ex_en<='1';
+      Mem_en<='1';
+      wb_en<='1';
+
 			end if;
 		end process;
 		

@@ -27,11 +27,12 @@ Entity fetch_stage is
 		
 		--Branch ports
 		pc_in : in integer;
+--		instruction_in : in std_logic_vector(31 downto 0);
+--		branch_check : in std_logic;
 		
 		--Output ports
 		instruction_out : out std_logic_vector(31 downto 0);
-		pc_out : out integer;
-		fetch_ready: out std_logic
+		pc_out : out integer
 	);
 End fetch_stage;
 

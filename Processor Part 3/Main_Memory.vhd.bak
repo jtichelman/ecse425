@@ -9,8 +9,8 @@ ENTITY Main_Memory IS
 			Mem_Size_in_Word : integer:=1024;	
 			Num_Bytes_in_Word: integer:=4;
 			Num_Bits_in_Byte: integer := 8; 
-			Read_Delay: integer:=10; 
-			Write_Delay:integer:=10
+			Read_Delay: integer:=0; 
+			Write_Delay:integer:=0
 		 );
 	port (
 			clk : in std_logic;
@@ -216,7 +216,7 @@ wr_done <= '1' when wr_done0='1' or wr_done1='1' or wr_done2='1' or wr_done3='1'
 			variable Mem_Address : integer:=0;
 			variable  word_value : std_logic_vector(Num_Bytes_in_Word*Num_Bits_in_Byte-1 downto 0);
 			variable  byte_value : std_logic_vector(Num_Bits_in_Byte-1 downto 0);
-			variable delay_cnt : integer :=0;
+			variable delay_cnt : integer :=10;
 	begin
 	
 		Block_Mem_Init <='0';

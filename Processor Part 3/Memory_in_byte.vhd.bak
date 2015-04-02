@@ -8,8 +8,8 @@ ENTITY Memory_in_Byte IS
 			File_Address_Write : string :="MemCon.dat";
 			Mem_Size : integer:=1024;
 			Num_Bits_in_Byte: integer:=8;
-			Read_Delay: integer:=10; 
-			Write_Delay:integer:=10
+			Read_Delay: integer:=0; 
+			Write_Delay:integer:=0
 			
 		 );
 	port (
@@ -40,7 +40,7 @@ BEGIN
         variable char : character:='0'; 
 		variable Mem_Address : integer:=0;
 		variable  bin_value : std_logic_vector(Num_Bits_in_Byte-1 downto 0);
-		variable delay_cnt : integer :=0;
+		variable delay_cnt : integer :=10;
 	begin
 	
 		--	Initializing the memory from a file
