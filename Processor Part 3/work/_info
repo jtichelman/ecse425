@@ -1,0 +1,556 @@
+m255
+K3
+13
+cModel Technology
+dP:\ecse425\Processor Part 2
+Econtroller
+Z0 w1427993366
+Z1 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+Z2 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z3 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z4 dP:\ecse425\Processor Part 3
+Z5 8P:/ecse425/Processor Part 3/controller.vhd
+Z6 FP:/ecse425/Processor Part 3/controller.vhd
+l0
+L5
+VOM^6=OKO^FJ`jhG<T69nA0
+Z7 OV;C;10.1d;51
+32
+Z8 !s108 1427993407.446000
+Z9 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/controller.vhd|
+Z10 !s107 P:/ecse425/Processor Part 3/controller.vhd|
+Z11 o-work work -2002 -explicit -O0
+Z12 tExplicit 1
+!s100 1m=2@3HQ3oLm7ZYA?1]NC3
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 10 controller 0 22 OM^6=OKO^FJ`jhG<T69nA0
+l12
+L11
+Vd6Z9]AV=llek;k3WA7;;c1
+R7
+32
+R8
+R9
+R10
+R11
+R12
+!s100 `gQS9`nTU7]m^]H[48Xh[0
+!i10b 1
+Eex_mem_reg
+Z13 w1427993114
+R1
+R2
+R3
+R4
+Z14 8P:/ecse425/Processor Part 3/ex_mem_reg.vhd
+Z15 FP:/ecse425/Processor Part 3/ex_mem_reg.vhd
+l0
+L7
+VgdDaWd74_TJ2dnO:BalEP1
+R7
+32
+Z16 !s108 1427993407.789000
+Z17 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/ex_mem_reg.vhd|
+Z18 !s107 P:/ecse425/Processor Part 3/ex_mem_reg.vhd|
+R11
+R12
+!s100 eLn>zWWW9=oK:RD;g?UbY2
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 10 ex_mem_reg 0 22 gdDaWd74_TJ2dnO:BalEP1
+l31
+L30
+V_ehP5ZkFkbDi5bB:W8^T82
+R7
+32
+R16
+R17
+R18
+R11
+R12
+!s100 3YL3E;][8Ed8JZ2J[BdST2
+!i10b 1
+Eexecute
+R13
+R1
+R2
+R3
+R4
+Z19 8P:/ecse425/Processor Part 3/execute.vhd
+Z20 FP:/ecse425/Processor Part 3/execute.vhd
+l0
+L7
+Vcf@W6XZhe6Xf^BO[<UQ:L2
+R7
+32
+Z21 !s108 1427993408.038000
+Z22 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/execute.vhd|
+Z23 !s107 P:/ecse425/Processor Part 3/execute.vhd|
+R11
+R12
+!s100 _72o[PPP;aoSIj7_FQYX[1
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 7 execute 0 22 cf@W6XZhe6Xf^BO[<UQ:L2
+l38
+L32
+VS?oX0MgMcfM?jaM_BXocF2
+R7
+32
+R21
+R22
+R23
+R11
+R12
+!s100 LcCmB0PVU9RaSBCMJQ=]P0
+!i10b 1
+Efetch_stage
+R13
+R1
+R2
+R3
+R4
+Z24 8P:/ecse425/Processor Part 3/fetch_stage.vhd
+Z25 FP:/ecse425/Processor Part 3/fetch_stage.vhd
+l0
+L9
+VCMkc:T?0l:7NCbeAz>aEI3
+R7
+32
+Z26 !s108 1427993408.335000
+Z27 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/fetch_stage.vhd|
+Z28 !s107 P:/ecse425/Processor Part 3/fetch_stage.vhd|
+R11
+R12
+!s100 VzOCie5hNIOD<NPma>aK<2
+!i10b 1
+Aimplementation
+R1
+R2
+R3
+DEx4 work 11 fetch_stage 0 22 CMkc:T?0l:7NCbeAz>aEI3
+l41
+L39
+VWf5I39@9Z<60e]?`GO2lK3
+R7
+32
+R26
+R27
+R28
+R11
+R12
+!s100 71=C9;8RabcgmzWzB3?:k2
+!i10b 1
+Eid_ex_reg
+R13
+R1
+R2
+R3
+R4
+Z29 8P:/ecse425/Processor Part 3/id_ex_reg.vhd
+Z30 FP:/ecse425/Processor Part 3/id_ex_reg.vhd
+l0
+L7
+VE@zMKmCBID3EXfb3enBkV1
+R7
+32
+Z31 !s108 1427993408.631000
+Z32 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/id_ex_reg.vhd|
+Z33 !s107 P:/ecse425/Processor Part 3/id_ex_reg.vhd|
+R11
+R12
+!s100 Fod2TAc>WPNJ1CK>;io_V2
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 9 id_ex_reg 0 22 E@zMKmCBID3EXfb3enBkV1
+l37
+L36
+VhT2?3TcT4z`?dz@P0A39o2
+R7
+32
+R31
+R32
+R33
+R11
+R12
+!s100 J53`kM=nggNihdNW?7IHL2
+!i10b 1
+Eif_id_reg
+Z34 w1427993115
+R1
+R2
+R3
+R4
+Z35 8P:/ecse425/Processor Part 3/if_id_reg.vhd
+Z36 FP:/ecse425/Processor Part 3/if_id_reg.vhd
+l0
+L7
+V;Q?CLKhV<gfMi;YCMl^YX2
+R7
+32
+Z37 !s108 1427993408.959000
+Z38 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/if_id_reg.vhd|
+Z39 !s107 P:/ecse425/Processor Part 3/if_id_reg.vhd|
+R11
+R12
+!s100 F0WU]`nHTRaiIhmfQ?Naf3
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 9 if_id_reg 0 22 ;Q?CLKhV<gfMi;YCMl^YX2
+l23
+L22
+VaBiPKPf[T3nj?[Ji0?3M33
+R7
+32
+R37
+R38
+R39
+R11
+R12
+!s100 Y1468fiBU806R]V2eLZ>22
+!i10b 1
+Einstruction_decode
+R34
+R1
+R2
+R3
+R4
+Z40 8P:/ecse425/Processor Part 3/instruction_decode.vhd
+Z41 FP:/ecse425/Processor Part 3/instruction_decode.vhd
+l0
+L7
+V_OHmcSEmQVWieo27V2jA>2
+R7
+32
+Z42 !s108 1427993409.271000
+Z43 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/instruction_decode.vhd|
+Z44 !s107 P:/ecse425/Processor Part 3/instruction_decode.vhd|
+R11
+R12
+!s100 1<NYMIIkO_DoS37WOIPLg0
+!i10b 1
+Abehav
+R1
+R2
+R3
+DEx4 work 18 instruction_decode 0 22 _OHmcSEmQVWieo27V2jA>2
+l37
+L22
+VHSX:60:Cj]<h<R216N9MF3
+R7
+32
+R42
+R43
+R44
+R11
+R12
+!s100 TS5086MXTm=@f_M;TiV[g2
+!i10b 1
+Emain_memory
+R34
+R2
+R3
+R4
+Z45 8P:/ecse425/Processor Part 3/Main_Memory.vhd
+Z46 FP:/ecse425/Processor Part 3/Main_Memory.vhd
+l0
+L5
+V5a_8^b`hKd3XGQaMkbUba2
+R7
+32
+Z47 !s108 1427993409.552000
+Z48 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/Main_Memory.vhd|
+Z49 !s107 P:/ecse425/Processor Part 3/Main_Memory.vhd|
+R11
+R12
+!s100 K3VgC7nUXd;:`mXm@_O^h2
+!i10b 1
+Abehavioural
+R2
+R3
+DEx4 work 11 main_memory 0 22 5a_8^b`hKd3XGQaMkbUba2
+l65
+L29
+V7Hgk_ccm_H@Y6DjSeMOWf2
+R7
+32
+R47
+R48
+R49
+R11
+R12
+!s100 ]8D5GM5`>EXU5`>Ren1K:2
+!i10b 1
+Emem
+R34
+R1
+R2
+R3
+R4
+Z50 8P:/ecse425/Processor Part 3/mem.vhd
+Z51 FP:/ecse425/Processor Part 3/mem.vhd
+l0
+L7
+VaD<m^BV5<3YC65]^Q[zAo3
+R7
+32
+Z52 !s108 1427993409.848000
+Z53 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/mem.vhd|
+Z54 !s107 P:/ecse425/Processor Part 3/mem.vhd|
+R11
+R12
+!s100 kI5::TSYVgbVTTffR:IIh3
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 3 mem 0 22 aD<m^BV5<3YC65]^Q[zAo3
+l29
+L27
+V<@YaHCf`OkGoY7Ca>l0@41
+R7
+32
+R52
+R53
+R54
+R11
+R12
+!s100 0=iWRklf7hQ<8@im8iWj00
+!i10b 1
+Emem_controller
+R34
+R1
+R2
+R3
+R4
+Z55 8P:/ecse425/Processor Part 3/mem_controller.vhd
+Z56 FP:/ecse425/Processor Part 3/mem_controller.vhd
+l0
+L10
+Ve1AN3C<SZbf0iPPJll9KS2
+R7
+32
+Z57 !s108 1427993410.144000
+Z58 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/mem_controller.vhd|
+Z59 !s107 P:/ecse425/Processor Part 3/mem_controller.vhd|
+R11
+R12
+!s100 Eoa>VYM?`O<Jz5oQI9oMN0
+!i10b 1
+Aimplementation
+R1
+R2
+R3
+DEx4 work 14 mem_controller 0 22 e1AN3C<SZbf0iPPJll9KS2
+l54
+L48
+VYRU=H?b3>EURdBOP]dn063
+R7
+32
+R57
+R58
+R59
+R11
+R12
+!s100 T]DH^J@[Sd=GFFFAgh:zf0
+!i10b 1
+Emem_wb_reg
+R34
+R1
+R2
+R3
+R4
+Z60 8P:/ecse425/Processor Part 3/mem_wb_reg.vhd
+Z61 FP:/ecse425/Processor Part 3/mem_wb_reg.vhd
+l0
+L7
+VNXjnC:i73A_;8X>VBAL3c3
+R7
+32
+Z62 !s108 1427993410.472000
+Z63 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/mem_wb_reg.vhd|
+Z64 !s107 P:/ecse425/Processor Part 3/mem_wb_reg.vhd|
+R11
+R12
+!s100 ieBAITo`Yk?Wh`S]?M:mg2
+!i10b 1
+Abehaviour
+R1
+R2
+R3
+DEx4 work 10 mem_wb_reg 0 22 NXjnC:i73A_;8X>VBAL3c3
+l25
+L24
+V::2QG8^Wj:YJ[6i:hGZ9Q1
+R7
+32
+R62
+R63
+R64
+R11
+R12
+!s100 6fC5`AcRiYJWnL3`caN8j3
+!i10b 1
+Ememory_in_byte
+R34
+R2
+R3
+R4
+Z65 8P:/ecse425/Processor Part 3/Memory_in_byte.vhd
+Z66 FP:/ecse425/Processor Part 3/Memory_in_byte.vhd
+l0
+L5
+VKnTD5<UAE[J_OVB7]@cJk3
+R7
+32
+Z67 !s108 1427993410.831000
+Z68 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/Memory_in_byte.vhd|
+Z69 !s107 P:/ecse425/Processor Part 3/Memory_in_byte.vhd|
+R11
+R12
+!s100 ?azoRNk0=NT<9f_E1MF<^1
+!i10b 1
+Abehavioural
+R2
+R3
+DEx4 work 14 memory_in_byte 0 22 KnTD5<UAE[J_OVB7]@cJk3
+l33
+L29
+V`Q9Y064E_6nhAD@TJl2Da2
+R7
+32
+R67
+R68
+R69
+R11
+R12
+!s100 RlML@EUjYJon5ZPe?leL[1
+!i10b 1
+Epart2
+Z70 w1427993116
+R1
+R2
+R3
+R4
+Z71 8P:/ecse425/Processor Part 3/part2.vhd
+Z72 FP:/ecse425/Processor Part 3/part2.vhd
+l0
+L9
+V`Seb^W53mDbVoSeEf3lW?2
+R7
+32
+Z73 !s108 1427993411.190000
+Z74 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/part2.vhd|
+Z75 !s107 P:/ecse425/Processor Part 3/part2.vhd|
+R11
+R12
+!s100 1[Yacj5C`MB:@FkhIfL5b0
+!i10b 1
+Aimplementation
+R1
+R2
+R3
+DEx4 work 5 part2 0 22 `Seb^W53mDbVoSeEf3lW?2
+l396
+L26
+VhPl3UM;BgHK2Mc5od4ZDS1
+R7
+32
+R73
+R74
+R75
+R11
+R12
+!s100 1nmoS^g^41CDmHCL>IH7d2
+!i10b 1
+Etestbench_part2
+R70
+R1
+R2
+R3
+R4
+Z76 8P:/ecse425/Processor Part 3/testbench_part2.vhd
+Z77 FP:/ecse425/Processor Part 3/testbench_part2.vhd
+l0
+L9
+VIVj@V81D5G>`ZgE9Kc8N;1
+R7
+32
+Z78 !s108 1427993411.548000
+Z79 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/testbench_part2.vhd|
+Z80 !s107 P:/ecse425/Processor Part 3/testbench_part2.vhd|
+R11
+R12
+!s100 S`4ECM:UPU^cP029YUd2I0
+!i10b 1
+Aimplementation
+R1
+R2
+R3
+DEx4 work 15 testbench_part2 0 22 IVj@V81D5G>`ZgE9Kc8N;1
+l41
+L12
+V@E4XSG;2>Ag2Q<J8mkGFj1
+R7
+32
+R78
+R79
+R80
+R11
+R12
+!s100 9AdncULOQ1glzUU`?>hD61
+!i10b 1
+Ewriteback_stage
+R70
+R1
+R2
+R3
+R4
+Z81 8P:/ecse425/Processor Part 3/writeback_stage.vhd
+Z82 FP:/ecse425/Processor Part 3/writeback_stage.vhd
+l0
+L9
+V]4;aYO@AlTPN195e9kdhg3
+!s100 m4=G<oaTWGWMcgUmSFE6J3
+R7
+32
+!i10b 1
+Z83 !s108 1427993411.860000
+Z84 !s90 -reportprogress|300|-work|work|-2002|-explicit|P:/ecse425/Processor Part 3/writeback_stage.vhd|
+Z85 !s107 P:/ecse425/Processor Part 3/writeback_stage.vhd|
+R11
+R12
+Aimplementation
+R1
+R2
+R3
+DEx4 work 15 writeback_stage 0 22 ]4;aYO@AlTPN195e9kdhg3
+l31
+L30
+V9UV2>E88961:KYgc2;b8B3
+!s100 F^JDWn_I>9cF9heJh7eoS2
+R7
+32
+!i10b 1
+R83
+R84
+R85
+R11
+R12
