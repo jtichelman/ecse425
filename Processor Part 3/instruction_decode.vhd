@@ -79,6 +79,7 @@ begin
 				
 				-- If the instruction is a branch send a branch flag to IF
 				if(opcode="011000" or opcode="011001" or opcode="011010" or opcode="011011"
+				      --or opcode="011100" or instruction="00000000000000000000000000000000") then
 				      or opcode="011100") then
 				    is_branch<='1';
 				else

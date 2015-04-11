@@ -43,15 +43,24 @@ Architecture implementation of fetch_stage is
 		variable program_counter : integer := 0; --Initialize pc to 0
 		variable first : std_logic:='1';  -- 1 if it is the first instruction (so pc is initialized to 0)
 		variable one_cycle_ready: std_logic  := '0';
+		variable noop_counter: integer := 0;
 		Begin
 			if (clock = '1' and clock'event) then
 			  
-			if(is_branch='1') then
+			if(is_branch='1' and noop_counter=0) then
 			   instruction_out <= "00000000000000000000000000000000";
 			   pc_out <= pc_in + 4;
 			   fetch_ready <= '1';
+			   noop_counter := 1;
+			
+			elsif (noop_counter < 5 AND noop_counter > 0) then
+			  instruction_out <= "00000000000000000000000000000000";
+			   pc_out <= pc_in + 4;
+			   fetch_ready <= '1';
+			   noop_counter := noop_counter + 1;
 			
 			else
+			  noop_counter := 0;
 			  fetch_ready <= '0';
 				if fetch_en = '1' then
 					if first = '1' then

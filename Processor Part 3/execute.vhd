@@ -59,7 +59,6 @@ begin
 							HI_LO := std_logic_vector(signed(s_register) * signed(t_register));
 							reg_HI <= HI_LO (63 downto 32);
 							reg_LO <= HI_LO (31 downto 0);
-							
 						when "000100" => --div
 							reg_LO <= std_logic_vector(signed(s_register) / signed(t_register));
 							reg_HI <= std_logic_vector(signed(s_register) rem signed(t_register)); --mod or rem?
