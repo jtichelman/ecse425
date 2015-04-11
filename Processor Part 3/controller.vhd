@@ -36,6 +36,12 @@ architecture behaviour of controller is
 		     elsif (sf = '1' AND branch_resolved ='1') then
 		        sf <= '0';
 		        
+		     elsif( sf='1'AND branch_resolved='0') then
+		        sf <= '1';
+		        
+		     elsif( is_branch='1' and branch_resolved='0') then
+		        sf <='1';
+		        
 		     else 
 		        sf <= '0';
 		     

@@ -32,7 +32,9 @@ architecture behaviour of mem is
 		process0 : process(CLK, ENABLE)
 		begin
 			if(CLK'EVENT and CLK = '1') then
-				if(ENABLE = '1') then
+			  if(INSTRUCTION_IN="00000000000000000000000000000000") then
+			  
+				elsif(ENABLE = '1') then
 					INST<=to_integer(unsigned(INSTRUCTION)); --INST stores the opcode
 					INSTRUCTION_OUT <= INSTRUCTION_IN;	--Pass the instruction through to the next stage
 					--ALU instructions just pass signals along.
@@ -40,11 +42,13 @@ architecture behaviour of mem is
 					CASE INST is
 						--ALU Instructions
 						WHEN 0 to 19=>
-							PC <= NPC;
+						  branch_resolved<='0';
+						  PC <= NPC;
 							ALU_PASS <= ALU_Output;
 							
 						--Load Word	
 						WHEN 20 =>
+						  branch_resolved<='0';
 							READ_EN <= '1';
 							WRITE_EN <= '0';
 							WORD_BYTE_MEM <= '1';
@@ -56,6 +60,7 @@ architecture behaviour of mem is
 
 						--Load Byte	
 						WHEN 21 =>
+						  branch_resolved<='0';
 							READ_EN <= '1';
 							WRITE_EN <= '0';
 							WORD_BYTE_MEM <= '0';
@@ -67,6 +72,7 @@ architecture behaviour of mem is
 							
 						--Store Word
 						WHEN 22 =>
+      					   branch_resolved<='0';
 							READ_EN <= '0';
 							WRITE_EN <= '1';
 							WORD_BYTE_MEM <= '1';
@@ -78,6 +84,7 @@ architecture behaviour of mem is
 						
 						--Store Byte
 						WHEN 23 =>
+						  branch_resolved<='0';
 							READ_EN <= '0';
 							WRITE_EN <= '1';
 							WORD_BYTE_MEM <= '0';
@@ -89,6 +96,7 @@ architecture behaviour of mem is
 						
 						--Branch instruction
 						WHEN others =>
+						  branch_resolved<='1';
 							if(COND = '1') then
 								PC <= NPC - 4 + to_integer(unsigned(ALU_Output))*4;
 								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));

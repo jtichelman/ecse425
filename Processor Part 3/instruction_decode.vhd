@@ -77,11 +77,19 @@ begin
 				operand1 := reg_s;
 				operand2 := reg_t;
 				
+				-- If the instruction is a branch send a branch flag to IF
+				if(opcode="011000" or opcode="011001" or opcode="011010" or opcode="011011"
+				      or opcode="011100") then
+				    is_branch<='1';
+				else
+				  is_branch<='0';
+				end if;
 				
 				-- If the instruction needs to store its result in the register file,
-				-- save the number of the destination register in dests
-				
-				if( opcode="000000" or opcode="000001" or opcode="000111" or opcode="001000"
+				-- save the number of the destination register in dests, unless the destination is $0
+				if(reg_d = 0) then
+				  
+				elsif( opcode="000000" or opcode="000001" or opcode="000111" or opcode="001000"
 					or opcode="001001" or opcode="001010" or opcode="001110" or opcode="001111") then
 						destination := to_integer(unsigned(instruction(15 downto 11)));
 						if(tail_pointer=2) then

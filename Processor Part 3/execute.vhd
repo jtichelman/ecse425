@@ -46,6 +46,7 @@ begin
 					npc_out<=npc_in;
 					instruction_out<=instruction_in;
 					opcode_out<=op_code;
+					branch_cond <= '0';
 					case op_code is	--Check opcode to determine function
 						--Arithmetic
 						when "000000" => --add
