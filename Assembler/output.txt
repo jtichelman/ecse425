@@ -1,41 +1,107 @@
 addi 11 0 2000
 addi 15 0 4
-addi 1 0 3
-addi 2 0 4
-and 3 1 2
 addi 10 0 0
 mult 10 15
 mflo 12
 add 13 11 12
-add 2 0 3
+addi 2 0 4
 sw 2 0 13
-beq 1 0 10 (False, 22)
-beq 2 0 9 (False, 22)
-addi 4 0 1
 addi 10 0 1
 mult 10 15
 mflo 12
 add 13 11 12
-add 2 0 4
+addi 2 0 5
 sw 2 0 13
-j 
-addi 4 0 0
-or 5 1 2
+addi 10 0 2
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 3
+sw 2 0 13
 addi 10 0 3
 mult 10 15
 mflo 12
 add 13 11 12
-add 2 0 5
+addi 2 0 2
 sw 2 0 13
-bne 1 0 10 (True, 40)
-bne 2 0 9 (True, 40)
-addi 6 0 0
 addi 10 0 4
 mult 10 15
 mflo 12
 add 13 11 12
-add 2 0 6
+addi 2 0 1
 sw 2 0 13
-j 
-addi 6 0 1
-beq 11 11 0 (End, 41)
+addi 10 0 5
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 8
+sw 2 0 13
+addi 10 0 6
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 2
+sw 2 0 13
+addi 10 0 7
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 2
+sw 2 0 13
+addi 10 0 8
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 4
+sw 2 0 13
+addi 10 0 9
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 86
+sw 2 0 13
+addi 10 0 10
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 95
+sw 2 0 13
+addi 10 0 11
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 123
+sw 2 0 13
+addi 10 0 12
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 4
+sw 2 0 13
+addi 10 0 13
+mult 10 15
+mflo 12
+add 13 11 12
+addi 2 0 -1
+sw 2 0 13
+addi 6 0 2000
+addi 20 0 0
+lw 10 0 6
+lw 1 4 6
+slti 21 1 0
+addi 22 0 1
+beq 21 22 11 (redo, 104)
+sub 21 1 10
+sra 21 21 31
+addi 19 0 -1
+xor 21 21 19
+bne 21 0 4 (next, 102)
+sw 1 0 6
+sw 10 4 6
+addi 20 0 1
+addi 6 6 4
+j Y
+beq 20 0 3 (done, 107)
+addi 6 0 2000
+j W
+beq 11 11 0 (done, 107)

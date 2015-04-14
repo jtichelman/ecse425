@@ -277,7 +277,7 @@ public class assembler{
 					case "j":
 						label = li.next().toString();
 						labelIndex = labels.get(label);
-						i = labelIndex - lineCounter;
+						i = labelIndex;
 						wb.write(i);
 						writeBuffer.write("011010" + toBinary(i,26));
 						break;

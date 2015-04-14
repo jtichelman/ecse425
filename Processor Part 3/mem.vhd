@@ -95,10 +95,21 @@ architecture behaviour of mem is
 							end if;	
 						
 						--Branch instruction
-						WHEN others =>
+						WHEN 26 or 27 =>
 						  branch_resolved<='1';
 							if(COND = '1') then
 								PC <= NPC - 8 + to_integer(unsigned(ALU_Output))*4;
+								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
+							else
+								PC <= NPC;
+								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
+							end if;
+							
+						--Jump instruction	
+						WHEN others =>
+						  branch_resolved<='1';
+							if(COND = '1') then
+								PC <= to_integer(unsigned(ALU_Output))*4;
 								ALU_PASS <= std_logic_vector(to_unsigned(NPC-4, 32));
 							else
 								PC <= NPC;
