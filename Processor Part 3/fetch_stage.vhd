@@ -28,6 +28,7 @@ Entity fetch_stage is
 		--Branch ports
 		pc_in : in integer;
 		is_branch : in std_logic;
+		hazard : out std_logic;
 		
 		--Output ports
 		instruction_out : out std_logic_vector(31 downto 0);
@@ -78,6 +79,17 @@ Architecture implementation of fetch_stage is
 						
 						--Write instruction to IF/ID register
 						instruction_out <= data_mem;
+						
+						
+						-- Set hazard flag to controller if instruction is memory access for structural hazard handling
+						if(data_mem(31 downto 26)="010100" OR data_mem(31 downto 26)="010101" OR data_mem(31 downto 26)="010110"
+						    OR data_mem(31 downto 26)="010111") then
+						    hazard<='1';
+						else
+				        hazard <='0'; 
+						end if;
+						
+						
 						if (one_cycle_ready = '0') then
 						  fetch_ready <= '1';	
 						  one_cycle_ready := '1';

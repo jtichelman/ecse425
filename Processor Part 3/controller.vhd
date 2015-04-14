@@ -6,6 +6,7 @@ entity controller is
 	PORT (	clock : in std_logic;
 	    IF_ready: in std_logic;
 			IF_en, ID_en, EX_en, MEM_en, WB_en :  out std_logic;
+			hazard : in std_logic;
 			is_branch, branch_resolved : in std_logic;
 			branch_done : out std_logic;
 			stall_fetch : out std_logic
@@ -16,18 +17,25 @@ architecture behaviour of controller is
   
   signal sf : std_logic := '0'; 
   
+  signal new_hazard : std_logic := '0';
+  signal count : integer;
+  
 	Begin
-		ID_en <= IF_ready;
+		--ID_en <= IF_ready;
 		--EX_en <= ID_ready;
 		--MEM_en <= EX_ready;
 		--WB_en <= MEM_ready;
 		
-		IF_en <= '1';
-		
-		EX_en <='1';
-		MEM_en <='1';
-		WB_en <='1';
-		
+	 IF_en <= '1';
+	 ID_en <=IF_READY;
+	 EX_en <='1';
+	 MEM_en <='1';
+	 WB_en <='1';
+
+
+
+-- Stall fetch when decode detects a branch instruction, tells fetch to insert noops
+-- until the branch is resolved after the execute stage
 		stallFetch : process(clock)
 		  Begin
 		    if(clock'EVENT and clock ='1') then
@@ -46,48 +54,64 @@ architecture behaviour of controller is
 		
 		stall_fetch <= sf;
 		
-		--stall_fetch <= is_branch;
 		
---		increment : process(clock)
---		variable count : integer := -1;
---		Begin
---			if(clock'EVENT and clock = '0') then
---			if (count = 24) then
---			  count := 0;
---			else 
---			  count := count + 1;
---		  end if;
---				CASE count is
---					WHEN 0=>
---						IF_en <='1';
---						wb_en <='0';
---						
---					
---					WHEN 8 =>
---						IF_en<='0';
---						ID_en <='1';
---						
---						
---					WHEN 9 =>
---						ID_en <= '0';
---						EX_en <= '1';
---						
---						
---					WHEN 10 =>
---						EX_en <= '0';
---						MEM_en <= '1';
---						
---			
---					WHEN 18 =>
---						MEM_en <= '0';
---						WB_en <= '1';
---						
---						
---				  WHEN others =>
---				
---				End case;
-
---			end if;
---		end process;
+--  We attempted to implement structural hazard handling using this block
+--  by "disabling" the pipeline and allowing the memory access instruction
+--  to proceed on its own
+		
+--		PipelineControl :  process(clock)
+--		  Begin
+--		     if(clock'EVENT and clock='1') then
+--		      if(hazard='0') then
+--		        IF_en <= '1';
+--		        ID_en <=IF_READY;
+--	         	EX_en <='1';
+--		        MEM_en <='1';
+--		        WB_en <='1';
+--		       else
+--		         if(new_hazard='0') then
+--		          new_hazard<='1';
+--		          count<=1;
+--		         elsif(count=1) then
+--		          IF_en <= '0';
+--		          ID_en <='1';
+--	         	  EX_en <='1';
+--		          MEM_en <='1';
+--		          WB_en <='1';
+--		          count <=2;
+--		         elsif(count=2) then
+--		         	IF_en <= '0';
+--		          ID_en <='0';
+--		          EX_en <='1';
+--		          MEM_en <='1';
+--		          WB_en <='1';
+--		          count<=3;
+--		         elsif(count=3) then
+--		         	IF_en <= '0';
+--		          ID_en <='0';
+--		          EX_en <='0';
+--		          MEM_en <='1';
+--		          WB_en <='1';
+--		          count<=4;
+--		         elsif(count=4) then
+--		         	IF_en <= '0';
+--		          ID_en <='0';
+--		          EX_en <='0';
+--		          MEM_en <='0';
+--		          WB_en <='1';
+--		          count<=5;
+--		         elsif(count=5) then
+--   		         IF_en <= '1';
+--		          ID_en <=IF_READY;
+--	         	  EX_en <='1';
+--		          MEM_en <='1';
+--		          WB_en <='1';
+--		          new_hazard <='0';
+--		         else 
+--		           count<= count + 1;
+--		         end if;
+--		      end if;
+--		     end if;
+--		    end process;
 		
 end behaviour;

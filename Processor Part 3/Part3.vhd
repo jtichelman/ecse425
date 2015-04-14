@@ -41,6 +41,7 @@ Architecture implementation of part3 is
 			--Branch ports
 			pc_in : in integer;
 			is_branch : in std_logic;
+			hazard : out std_logic;
 			
 			--Output ports
 			instruction_out : out std_logic_vector(31 downto 0);
@@ -194,6 +195,7 @@ Architecture implementation of part3 is
 	   PORT (	clock : in std_logic;
 	    IF_ready: in std_logic;
 			IF_en, ID_en, EX_en, MEM_en, WB_en :  out std_logic;
+			hazard : in std_logic;
 			is_branch, branch_resolved : in std_logic;
 			stall_fetch : out std_logic
 		);
@@ -412,6 +414,7 @@ Architecture implementation of part3 is
 	signal is_branch : std_logic;
 	signal branch_resolved : std_logic;
 	signal stall_fetch : std_logic;
+	signal fetch_hazard : std_logic;
 	
 	Begin
 		
@@ -430,6 +433,7 @@ Architecture implementation of part3 is
 			       --Branch ports
 			       pc_in		 	=> temp2,
 			       is_branch 	   => stall_fetch,
+			       hazard        => fetch_hazard,
 			       
 			       --Output ports
 			       instruction_out => reg_instruction_IF_in,
@@ -685,6 +689,7 @@ Architecture implementation of part3 is
 					 EX_en 			  => execute_enable,
 					 MEM_en			  => mem_enable,
 					 WB_en 			  => writeback_enable,
+					 hazard    => fetch_hazard,
 					 is_branch		  => is_branch,
 					 branch_resolved => branch_resolved,
 					 stall_fetch     => stall_fetch
